@@ -3,6 +3,6 @@ This is an implementation on the command line of the classic game Tic Tac Toe wr
 ## Build Status
 todo: implement CI, put status here
 ## How To Use
-todo: write code to play game
+to run type `gradle run`
 ## Tests
-todo: implement tests
+to run tests type `gradle test`
