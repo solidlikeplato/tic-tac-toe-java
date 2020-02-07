@@ -3,9 +3,13 @@ import java.util.Arrays;
 
 public class Game {
   private char[] board;
-  Game() {
-    board = new char[9];
+  public Game() {
+    this.board = new char[9];
     Arrays.fill(board, ' ');
+  }
+
+  public Game(char[] newBoard) {
+    this.board = newBoard;
   }
   
   public String displayGame() {
