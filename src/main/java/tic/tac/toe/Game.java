@@ -7,7 +7,7 @@ public class Game {
     board = new char[9];
     Arrays.fill(board, ' ');
   }
-
+  
   public String displayGame() {
     String firstRow = " " + board[0] + " | " + board[1] + " | "+ board[2]+ " \n";
     String horizontalRule = "---|---|---\n";
@@ -19,5 +19,4 @@ public class Game {
   public String getGreeting() {
     return "Welcome to Tic Tac Toe";
   }
-
 }

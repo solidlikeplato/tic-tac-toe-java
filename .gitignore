@@ -8,3 +8,7 @@ build
 .classpath
 .project
 .settings/
+
+#intelliJ project files
+.idea/
+*.iml

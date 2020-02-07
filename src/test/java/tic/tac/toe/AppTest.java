@@ -9,10 +9,4 @@ public class AppTest {
     App app = new App();
     assertNotNull("app should have a greeting", app.getGreeting());
   }
-
-  @Test
-  public void testAppHasAGame() {
-    App app = new App();
-    assertNotNull("app should have a game", app.displayGame());
-  }
 }
