@@ -4,11 +4,20 @@
 package tic.tac.toe;
 
 public class App {
-    public String getGreeting() {
-        return "Welcome to Tic Tac Toe";
-    }
+  Game game;
+  App() {
+    game = new Game();
+  }
+  public String displayGame() {
+    return game.displayGame();
+  }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
-    }
+  public String getGreeting() {
+    return game.getGreeting();
+  }
+
+  public static void main(String[] args) {
+    
+    System.out.println(new Game().getGreeting());
+  }
 }
