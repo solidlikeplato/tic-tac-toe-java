@@ -1,6 +1,5 @@
 package tic.tac.toe;
 
-import jdk.jfr.StackTrace;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
