@@ -9,6 +9,7 @@ public class GameTest {
     Game game = new Game();
     assertNotNull("game should have a greeting", game.getGreeting());
   }
+  
   @Test
   public void testNewGameBoardIsEmpty() {
     Game game = new Game();
