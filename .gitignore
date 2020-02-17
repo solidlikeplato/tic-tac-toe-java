@@ -3,3 +3,15 @@
 
 # Ignore Gradle build output directory
 build
+
+# Include gradle-wrapper.jar
+!gradle-wrapper.jar
+
+# Eclipse project files
+.classpath
+.project
+.settings/
+
+#intelliJ project files
+.idea/
+*.iml
