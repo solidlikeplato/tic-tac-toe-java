@@ -5,7 +5,7 @@ package tic.tac.toe;
 
 public class App {
     public String getGreeting() {
-        return "Hello world.";
+        return "Welcome to Tic Tac Toe";
     }
 
     public static void main(String[] args) {
