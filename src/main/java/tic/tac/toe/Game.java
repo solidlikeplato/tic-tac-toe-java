@@ -8,6 +8,14 @@ public class Game {
     Arrays.fill(board, ' ');
   }
   
+  public void addMark(int position) {
+    board[position - 1] = 'X';
+  }
+  
+  public String prompt() {
+    return "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your X?";
+  }
+
   public String displayGame() {
     String firstRow = " " + board[0] + " | " + board[1] + " | "+ board[2]+ " \n";
     String horizontalRule = "---|---|---\n";
