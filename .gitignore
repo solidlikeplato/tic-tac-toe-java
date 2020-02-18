@@ -15,3 +15,6 @@ build
 #intelliJ project files
 .idea/
 *.iml
+
+#vsCode project files
+.vscode/
