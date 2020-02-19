@@ -15,6 +15,13 @@ public class AppTest {
   public void setUpOutput() {
     testOut = new ByteArrayOutputStream();
   }
+  
+  public void RunApp(String input) {
+    final String UserInput = input;
+    provideInput(UserInput);
+    App app = new App(testIn, testOut);
+    app.run();
+  }
 
   private void provideInput(String data) {
     testIn = new ByteArrayInputStream(data.getBytes());
@@ -31,11 +38,27 @@ public class AppTest {
   }
 
   @Test
-  public void testTakesUserInput() {
-    final String UserInput = "5";
-    provideInput(UserInput);
-    App app = new App(testIn, testOut);
-    app.main(new String[0]);
-    assertEquals("Should put symbol in correct place", "   |   |   \n---|---|---\n   | X |   \n---|---|---\n   |   |   \n", getOutput());
+  public void testUpdateBoardWithSingleUserCorrectInput() {
+    RunApp("5");
+    String consoleOutput = getOutput();
+    String finalBoard = consoleOutput.substring(consoleOutput.length() - 60);
+
+    assertEquals("Should put update board based on a correct user input", "   |   |   \n---|---|---\n   | X |   \n---|---|---\n   |   |   \n", finalBoard);
+  }
+
+  @Test
+  public void testDoesntUpdateBoardWithNonNumericInput() {
+    RunApp("A");
+    String consoleOutput = getOutput();
+    String finalBoard = consoleOutput.substring(consoleOutput.length() - 60);
+    assertEquals("Should not update board when given non numeric user input", "   |   |   \n---|---|---\n   |   |   \n---|---|---\n   |   |   \n", finalBoard);
+  }
+
+  @Test
+  public void testDoesntUpdateBoardWithOutOfRangeInput() {
+    RunApp("10");
+    String consoleOutput = getOutput();
+    String finalBoard = consoleOutput.substring(consoleOutput.length() - 60);
+    assertEquals("Should put update board when given numeric input outside 1-9", "   |   |   \n---|---|---\n   |   |   \n---|---|---\n   |   |   \n", finalBoard);
   }
 }

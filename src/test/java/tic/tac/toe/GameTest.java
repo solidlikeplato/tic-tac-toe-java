@@ -11,15 +11,15 @@ public class GameTest {
   }
   
   @Test
-  public void testNewGameBoardIsEmpty() {
+  public void testNewGameDisplaysEmptyBoard() {
     Game game = new Game();
-    assertEquals("game should have an empty board", game.displayGame(), "   |   |   \n---|---|---\n   |   |   \n---|---|---\n   |   |   ");
+    assertEquals("A new game should display an empty board", game.displayGame(), "   |   |   \n---|---|---\n   |   |   \n---|---|---\n   |   |   ");
   }
   
   @Test
-  public void testUserInputDisplay() {
+  public void testGamePromptsUser() {
     Game game = new Game();
-    assertEquals("Game should show user available squares and text prompt for input from user", game.prompt(), "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your X?");
+    assertEquals("Game should prompt user with available squares", game.prompt(), "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your X?");
   }
 
   @Test

@@ -15,15 +15,25 @@ public class App {
     System.setIn(in);
     System.setOut(new PrintStream(out));
   }
-  public static void main(String[] args) {
+
+  public void run() {
     Game game = new Game();
-    // System.out.println(game.getGreeting());
-    // System.out.println(game.displayGame());
-    // System.out.println(game.prompt());
+    System.out.println(game.getGreeting());
+    System.out.println(game.displayGame());
+    System.out.println(game.prompt());
     Scanner sc = new Scanner(System.in);
-    int square = sc.nextInt();
-    game.addMark(square);
+    try {
+      int square = sc.nextInt();
+      game.addMark(square);
+    }
+    catch (Exception e) {
+      // If input isn't valid we want it to do nothing
+    }
     System.out.println(game.displayGame());
     sc.close();
+  }
+
+  public static void main(String[] args) {
+    new App().run();
   }
 }
