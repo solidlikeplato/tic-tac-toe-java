@@ -5,20 +5,21 @@ public class App {
   App() {
     game = new Game();
   }
-
-  public String displayGame() {
-    String board = game.displayGame();
-    System.out.println(board);
-    return board;
+  
+  App( Game mockedGame) {
+    game = mockedGame;
   }
 
   public String getGreeting() {
     return new Game().getGreeting();
   }
 
-  public static void main(String[] args) {
-    Game game = new Game();
+  public void run() {
     System.out.println(game.getGreeting());
     System.out.println(game.displayGame());
+  }
+  public static void main(String[] args) {
+    App app = new App();
+    app.run();
   }
 }

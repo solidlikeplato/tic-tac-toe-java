@@ -11,9 +11,9 @@ public class GameTest {
   }
   
   @Test
-  public void testNewGameBoardIsEmpty() {
+  public void testGameDisplaysEmptyBoard() {
     Game game = new Game();
-    assertEquals("game should have an empty board", game.displayGame(), "   |   |   \n---|---|---\n   |   |   \n---|---|---\n   |   |   ");
+    assertEquals("display board should return an empty board", game.displayGame(), "   |   |   \n---|---|---\n   |   |   \n---|---|---\n   |   |   ");
   }
 }
 
