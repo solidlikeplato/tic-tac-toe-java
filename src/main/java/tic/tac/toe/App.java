@@ -5,23 +5,27 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class App {
+  private Game game;
 
   public App() {
     System.setIn(System.in);
     System.setOut(System.out);
+    game = new Game();
   }
 
-  public App(InputStream in, ByteArrayOutputStream out) {
+  public App(InputStream in, ByteArrayOutputStream out, Game mockedGame) {
     System.setIn(in);
     System.setOut(new PrintStream(out));
+    game = mockedGame;
   }
 
   public void run() {
-    Game game = new Game();
     System.out.println(game.getGreeting());
     System.out.println(game.displayGame());
     System.out.println(game.prompt());
     Scanner sc = new Scanner(System.in);
+
+    // Should this try block be inside the game class -- 2 possible points of exception: extracting int from input, out of range int from game.addMark()
     try {
       int square = sc.nextInt();
       game.addMark(square);
@@ -34,6 +38,7 @@ public class App {
   }
 
   public static void main(String[] args) {
-    new App().run();
+    App app = new App();
+    app.run();
   }
 }
