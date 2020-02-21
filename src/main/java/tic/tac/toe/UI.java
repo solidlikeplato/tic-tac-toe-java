@@ -12,12 +12,7 @@ public class UI {
   }
 
   public void addMark(int position) {
-    try {
-      game.addMark(position);
-    }
-    catch(Exception e) {
-      //if the input is out of range we want to do nothing
-    }
+    game.addMark(position);
   }
 
   public String displayGame() {

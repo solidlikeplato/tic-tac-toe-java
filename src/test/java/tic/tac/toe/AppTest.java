@@ -16,7 +16,6 @@ public class AppTest {
   @Before
   public void setUp() {
     testOut = new ByteArrayOutputStream();
-
   }
   
   public void RunApp(String input) {
@@ -25,11 +24,16 @@ public class AppTest {
     App app = new App(testIn, testOut, mockedUI);
     app.run();
   }
-
+  
   @After
   public void restoreSystemInputOutput() {
     System.setIn(systemIn);
     System.setOut(systemOut);
+  }
+  @Test
+  public void testAppDoesntUpdateBoardWithNonNumericInput() {
+    RunApp("A");
+    verify(mockedUI, never()).addMark(anyInt());
   }
 
   @Test
@@ -40,15 +44,4 @@ public class AppTest {
     verify(mockedUI).addMark(5);
   }
 
-  @Test
-  public void testDoesntUpdateBoardWithNonNumericInput() {
-    RunApp("A");
-    verify(mockedUI, never()).addMark(anyInt());
-  }
-
-  @Test
-  public void testDoesntUpdateBoardWithOutOfRangeInput() {
-    RunApp("10");
-    verify(mockedUI).addMark(10);
-  }
 }

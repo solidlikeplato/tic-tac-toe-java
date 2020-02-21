@@ -3,6 +3,7 @@ import java.util.Arrays;
 
 public class Game {
   private char[] board;
+  private char currentPlayerSymbol = 'X';
   public Game() {
     this.board = new char[9];
     Arrays.fill(board, ' ');
@@ -17,7 +18,9 @@ public class Game {
   }
   
   public void addMark(int position) {
-    board[position - 1] = 'X';
+    if (position > 0 && position < getBoardSize()){
+      board[position - 1] = currentPlayerSymbol;
+    }
   }
 
   public char getMarkAt(int position) {
