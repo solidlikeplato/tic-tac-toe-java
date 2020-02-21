@@ -11,7 +11,6 @@ public class AppTest {
 
   private ByteArrayInputStream testIn;
   private ByteArrayOutputStream testOut;
-  private Game game;
   private UI mockedUI;
 
   @Before
@@ -22,7 +21,6 @@ public class AppTest {
   
   public void RunApp(String input) {
     testIn = new ByteArrayInputStream(input.getBytes());
-    game = new Game();
     mockedUI = mock(UI.class);
     App app = new App(testIn, testOut, mockedUI);
     app.run();
