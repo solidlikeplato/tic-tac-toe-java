@@ -30,6 +30,7 @@ public class GameTest {
     System.setIn(systemIn);
     System.setOut(systemOut);
   }
+
   @Test
   public void gameDoesntUpdateBoardWithNonNumericInput() {
     RunGame("A");
@@ -43,5 +44,4 @@ public class GameTest {
     verify(mockedUI, atLeastOnce()).displayBoard();
     verify(mockedUI).addMark(5);
   }
-
 }

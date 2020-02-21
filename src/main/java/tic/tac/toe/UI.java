@@ -7,6 +7,14 @@ public class UI {
     board = newBoard;
   }
 
+  public UI() {
+    board = new Board();
+  }
+  
+  public boolean isGameOver() {
+    return board.isGameOver();
+  }
+  
   public String getGreeting() {
     return "Welcome to Tic Tac Toe";
   }
@@ -24,6 +32,6 @@ public class UI {
   }
 
   public String prompt() {
-    return "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your X?";
+    return "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your " + board.getCurrentPlayerSymbol() + "?";
   }
 }
