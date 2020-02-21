@@ -11,7 +11,8 @@ public class AppTest {
 
   private ByteArrayInputStream testIn;
   private ByteArrayOutputStream testOut;
-  Game mockedGame;
+  private Game game;
+  private UI mockedUI;
 
   @Before
   public void setUp() {
@@ -21,8 +22,9 @@ public class AppTest {
   
   public void RunApp(String input) {
     testIn = new ByteArrayInputStream(input.getBytes());
-    mockedGame = mock(Game.class);
-    App app = new App(testIn, testOut, mockedGame);
+    game = new Game();
+    mockedUI = mock(UI.class);
+    App app = new App(testIn, testOut, mockedUI);
     app.run();
   }
 
@@ -35,20 +37,20 @@ public class AppTest {
   @Test
   public void testUpdateBoardWithSingleUserCorrectInput() {
     RunApp("5");
-    verify(mockedGame).getGreeting();
-    verify(mockedGame, atLeastOnce()).displayGame();
-    verify(mockedGame).addMark(5);
+    verify(mockedUI).getGreeting();
+    verify(mockedUI, atLeastOnce()).displayGame();
+    verify(mockedUI).addMark(5);
   }
 
   @Test
   public void testDoesntUpdateBoardWithNonNumericInput() {
     RunApp("A");
-    verify(mockedGame, never()).addMark(anyInt());
+    verify(mockedUI, never()).addMark(anyInt());
   }
 
   @Test
   public void testDoesntUpdateBoardWithOutOfRangeInput() {
     RunApp("10");
-    verify(mockedGame).addMark(10);
+    verify(mockedUI).addMark(10);
   }
 }

@@ -5,35 +5,33 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class App {
-  private Game game;
+  private UI ui;
 
   public App() {
     System.setIn(System.in);
     System.setOut(System.out);
-    game = new Game();
+    ui = new UI(new Game());
   }
 
-  public App(InputStream in, ByteArrayOutputStream out, Game mockedGame) {
+  public App(InputStream in, ByteArrayOutputStream out, UI mockedUI) {
     System.setIn(in);
     System.setOut(new PrintStream(out));
-    game = mockedGame;
+    ui = mockedUI;
   }
 
   public void run() {
-    System.out.println(game.getGreeting());
-    System.out.println(game.displayGame());
-    System.out.println(game.prompt());
+    System.out.println(ui.getGreeting());
+    System.out.println(ui.displayGame());
+    System.out.println(ui.prompt());
     Scanner sc = new Scanner(System.in);
-
-    // Should this try block be inside the game class -- 2 possible points of exception: extracting int from input, out of range int from game.addMark()
     try {
       int square = sc.nextInt();
-      game.addMark(square);
+      ui.addMark(square);
     }
     catch (Exception e) {
-      // If input isn't valid we want it to do nothing
+      // If input isn't an int we want it to do nothing
     }
-    System.out.println(game.displayGame());
+    System.out.println(ui.displayGame());
     sc.close();
   }
 
