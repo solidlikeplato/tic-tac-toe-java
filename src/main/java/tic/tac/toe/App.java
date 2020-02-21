@@ -10,10 +10,6 @@ public class App {
     game = mockedGame;
   }
 
-  public String getGreeting() {
-    return new Game().getGreeting();
-  }
-
   public void run() {
     System.out.println(game.getGreeting());
     System.out.println(game.displayGame());
