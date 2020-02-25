@@ -6,7 +6,7 @@ import static org.mockito.Mockito.*;
 
 public class AppTest {
   @Test
-  public void testAppUsesGameInterface() {
+  public void appUsesGameInterface() {
     Game mockedGame = mock(Game.class);
     App app = new App(mockedGame);
     app.run();
