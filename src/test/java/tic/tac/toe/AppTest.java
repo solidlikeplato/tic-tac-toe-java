@@ -31,13 +31,13 @@ public class AppTest {
     System.setOut(systemOut);
   }
   @Test
-  public void testAppDoesntUpdateBoardWithNonNumericInput() {
+  public void appDoesntUpdateBoardWithNonNumericInput() {
     RunApp("A");
     verify(mockedUI, never()).addMark(anyInt());
   }
 
   @Test
-  public void testUpdateBoardWithSingleUserCorrectInput() {
+  public void updateBoardWithSingleUserCorrectInput() {
     RunApp("5");
     verify(mockedUI).getGreeting();
     verify(mockedUI, atLeastOnce()).displayGame();

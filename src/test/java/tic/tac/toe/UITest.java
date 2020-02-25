@@ -13,13 +13,13 @@ public class UITest {
   }
 
   @Test
-  public void testUIWithNewGameDisplaysEmptyBoard() {
+  public void uiWithNewGameDisplaysEmptyBoard() {
     assertEquals("A ui with a new game should display an empty board", ui.displayGame(),
         "   |   |   \n---|---|---\n   |   |   \n---|---|---\n   |   |   ");
   }
     
   @Test
-  public void testUIPromptsUser() {
+  public void uiPromptsUser() {
     assertNotNull("A UI should have a prompt", ui.prompt());
   }
 }
