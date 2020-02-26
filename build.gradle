@@ -26,9 +26,16 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+
+    // Using Mockito for mocking
+    testCompile "org.mockito:mockito-core:2.+"
 }
 
 application {
     // Define the main class for the application.
     mainClassName = 'tic.tac.toe.App'
+}
+
+run{
+   standardInput = System.in 
 }
