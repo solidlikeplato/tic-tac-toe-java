@@ -1,10 +1,10 @@
 package tic.tac.toe;
 
 public class UI {
-  Game game;
+  Board board;
 
-  public UI(Game newGame) {
-    game = newGame;
+  public UI(Board newBoard) {
+    board = newBoard;
   }
 
   public String getGreeting() {
@@ -12,14 +12,14 @@ public class UI {
   }
 
   public void addMark(int position) {
-    game.addMark(position);
+    board.addMark(position);
   }
 
-  public String displayGame() {
-    String firstRow = " " + game.getMarkAt(1) + " | " + game.getMarkAt(2) + " | "+ game.getMarkAt(3)+ " \n";
+  public String displayBoard() {
+    String firstRow = " " + board.getMarkAt(1) + " | " + board.getMarkAt(2) + " | "+ board.getMarkAt(3)+ " \n";
     String horizontalRule = "---|---|---\n";
-    String secondRow = " " + game.getMarkAt(4) + " | " + game.getMarkAt(5) + " | "+ game.getMarkAt(6)+ " \n";
-    String thirdRow = " " + game.getMarkAt(7) + " | " + game.getMarkAt(8) + " | "+ game.getMarkAt(9)+ " ";
+    String secondRow = " " + board.getMarkAt(4) + " | " + board.getMarkAt(5) + " | "+ board.getMarkAt(6)+ " \n";
+    String thirdRow = " " + board.getMarkAt(7) + " | " + board.getMarkAt(8) + " | "+ board.getMarkAt(9)+ " ";
     return firstRow + horizontalRule + secondRow + horizontalRule + thirdRow;
   }
 

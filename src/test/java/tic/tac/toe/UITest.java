@@ -4,17 +4,17 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class UITest {
-  private Game game;
+  private Board board;
   private UI ui;
   @Before
   public void setUp() {
-    game = new Game();
-    ui = new UI(game);
+    board = new Board();
+    ui = new UI(board);
   }
 
   @Test
   public void uiWithNewGameDisplaysEmptyBoard() {
-    assertEquals("A ui with a new game should display an empty board", ui.displayGame(),
+    assertEquals("A new board in a UI should display as empty", ui.displayBoard(),
         "   |   |   \n---|---|---\n   |   |   \n---|---|---\n   |   |   ");
   }
     
