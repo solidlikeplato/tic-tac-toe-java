@@ -1,29 +1,42 @@
 package tic.tac.toe;
-import java.util.Arrays;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.Scanner;
 
 public class Game {
-  private char[] board;
-  private char currentPlayerSymbol = 'X';
+  private UI ui;
+
   public Game() {
-    this.board = new char[9];
-    Arrays.fill(board, ' ');
+    System.setIn(System.in);
+    System.setOut(System.out);
+    ui = new UI(new Board());
   }
 
-  public int getBoardSize() {
-    return board.length;
+  public Game(InputStream in, ByteArrayOutputStream out, UI mockedUI) {
+    System.setIn(in);
+    System.setOut(new PrintStream(out));
+    ui = mockedUI;
   }
-  
-  public boolean isCellEmpty(int cell) {
-    return (board[cell-1] == ' ');
-  }
-  
-  public void addMark(int position) {
-    if (position > 0 && position < getBoardSize()){
-      board[position - 1] = currentPlayerSymbol;
+
+  public void run() {
+    System.out.println(ui.getGreeting());
+    System.out.println(ui.displayBoard());
+    System.out.println(ui.prompt());
+    Scanner sc = new Scanner(System.in);
+    try {
+      int square = sc.nextInt();
+      ui.addMark(square);
     }
+    catch (Exception e) {
+      // If input isn't an int we want it to do nothing
+    }
+    System.out.println(ui.displayBoard());
+    sc.close();
   }
 
-  public char getMarkAt(int position) {
-    return board[position-1];
+  public static void main(String[] args) {
+    Game game = new Game();
+    game.run();
   }
 }
