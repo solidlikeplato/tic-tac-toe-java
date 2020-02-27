@@ -15,7 +15,7 @@ dependencies {
 }
 
 application {
-    mainClassName = 'tic.tac.toe.Game'
+    mainClassName = 'tic.tac.toe.App'
 }
 
 run{

@@ -16,11 +16,11 @@ public class GameTest {
   @Before
   public void setUp() {
     testOut = new ByteArrayOutputStream();
+    mockedUI = mock(UI.class);
   }
   
   public void RunGame(String input) {
     testIn = new ByteArrayInputStream(input.getBytes());
-    mockedUI = mock(UI.class);
     Game game = new Game(testIn, testOut, mockedUI);
     game.run();
   }
@@ -33,15 +33,27 @@ public class GameTest {
 
   @Test
   public void gameDoesntUpdateBoardWithNonNumericInput() {
+    when(mockedUI.isGameOver()).thenReturn(true);
     RunGame("A");
     verify(mockedUI, never()).addMark(anyInt());
   }
 
   @Test
   public void updateBoardWithSingleUserCorrectInput() {
+    when(mockedUI.isGameOver()).thenReturn(true);
     RunGame("5");
     verify(mockedUI).getGreeting();
     verify(mockedUI, atLeastOnce()).displayBoard();
     verify(mockedUI).addMark(5);
+  }
+
+  @Test
+  public void gameLoopsUntilGameIsOver() {
+    when(mockedUI.isGameOver())
+      .thenReturn(false)
+      .thenReturn(false)
+      .thenReturn(true);
+    RunGame("9\n6\n3\n4\n");
+    verify(mockedUI, times(3)).prompt();
   }
 }

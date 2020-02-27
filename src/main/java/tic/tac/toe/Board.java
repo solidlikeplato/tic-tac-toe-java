@@ -24,14 +24,14 @@ public class Board {
   
   public boolean isGameOver() {
     boolean boardFull = true;
-    for (int i = 0; i < board.length; i++){
+    for (int i = 0; i < board.length && boardFull; i++) {
       boardFull = board[i] !=' ';
     }
     return boardFull;
   }
 
   public void addMark(int position) {
-    if (position > 0 && position <= getBoardSize() && isCellEmpty(position)){
+    if (position > 0 && position <= getBoardSize() && isCellEmpty(position)) {
       board[position - 1] = currentPlayerSymbol;
       currentPlayerSymbol = (currentPlayerSymbol == 'X') ? 'O' : 'X';
     }

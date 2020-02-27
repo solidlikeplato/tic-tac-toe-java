@@ -19,11 +19,8 @@ public class Game {
     ui = mockedUI;
   }
 
-  public void run() {
-    System.out.println(ui.getGreeting());
-    System.out.println(ui.displayBoard());
+  public void takeATurn(Scanner sc) {
     System.out.println(ui.prompt());
-    Scanner sc = new Scanner(System.in);
     try {
       int square = sc.nextInt();
       ui.addMark(square);
@@ -32,11 +29,17 @@ public class Game {
       // If input isn't an int we want it to do nothing
     }
     System.out.println(ui.displayBoard());
-    sc.close();
   }
 
-  public static void main(String[] args) {
-    Game game = new Game();
-    game.run();
+  public void run() {
+    boolean keepPlaying = true;
+    Scanner sc = new Scanner(System.in);
+    System.out.println(ui.getGreeting());
+    System.out.println(ui.displayBoard());
+    while(keepPlaying){
+      takeATurn(sc);
+      keepPlaying = !ui.isGameOver();
+    }
+    sc.close();
   }
 }

@@ -12,7 +12,6 @@ public class BoardTest {
 
   @Test
   public void newBoardIsEmpty() {
-    Board board = new Board();
     for (int cell = 1; cell <= board.getBoardSize(); cell++) {
       assertTrue("Each Cell Should Be Empty", board.isCellEmpty(cell));
     }
@@ -20,14 +19,12 @@ public class BoardTest {
 
   @Test
   public void addXToBoardOnValidInput() {
-    Board board = new Board();
     board.addMark(2);
     assertEquals("board should Add an 'X' to cell 2", board.getMarkAt(2), 'X');
   }
 
   @Test
   public void doesntAddSymbolOnOutOfRangeInput() {
-    Board board = new Board();
     board.addMark(10);
     board.addMark(0);
     for (int cell = 1; cell <= board.getBoardSize(); cell++) {
@@ -37,7 +34,6 @@ public class BoardTest {
 
   @Test
   public void addMultipleSymbolsToBoard() {
-    Board board = new Board();
     board.addMark(2);
     board.addMark(3);
     board.addMark(4);
@@ -48,17 +44,21 @@ public class BoardTest {
 
   @Test
   public void newGameEmptyBoardNotEnded() {
-    Board board = new Board();
     assertFalse("New board should not be over immediately", board.isGameOver());
   }
 
   @Test
-  public void testFullBoardEndsGame() {
-    Board board = new Board();
+  public void fullBoardEndsTheGame() {
     for (int i = 1; i <= board.getBoardSize(); i++) {
       board.addMark(i);
     }
     assertTrue("Full board ends game", board.isGameOver());
+  }
+
+  @Test
+  public void addingOneSymbolAtLastCellDoesntEndGame() {
+    board.addMark(9);
+    assertFalse("Adding a symbol only to last cell doesn't end game", board.isGameOver());
   }
 
   @Test
