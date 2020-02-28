@@ -1,4 +1,5 @@
 package tic.tac.toe;
+
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -7,6 +8,9 @@ import java.util.Scanner;
 public class Game {
   private UI ui;
   private Board board;
+  private char player1 = 'X';
+  private char player2 = 'O';
+  private char currentPlayer = player1;
 
   public Game() {
     System.setIn(System.in);
@@ -22,11 +26,18 @@ public class Game {
     board = mockedBoard;
   }
 
+  public char getCurrentPlayer() {
+    return currentPlayer;
+  }
+
   public void takeATurn(Scanner sc) {
-    System.out.println(ui.prompt());
+    System.out.println(ui.prompt(currentPlayer));
     try {
       int square = sc.nextInt();
-      board.addMark(square);
+      if (board.isCellEmpty(square)) {
+        board.addMark(square, currentPlayer);
+        currentPlayer = (currentPlayer == player1) ? player2 : player1;
+      }
     }
     catch (Exception e) {
       // If input isn't an int we want it to do nothing
@@ -39,7 +50,7 @@ public class Game {
     Scanner sc = new Scanner(System.in);
     System.out.println(ui.getGreeting());
     System.out.println(ui.displayBoard());
-    while(keepPlaying){
+    while (keepPlaying) {
       takeATurn(sc);
       keepPlaying = !board.isBoardFull();
     }

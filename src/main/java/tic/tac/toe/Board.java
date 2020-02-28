@@ -3,7 +3,6 @@ import java.util.Arrays;
 
 public class Board {
   private char[] board;
-  private char currentPlayerSymbol = 'X';
 
   public Board() {
     board = new char[9];
@@ -12,10 +11,6 @@ public class Board {
 
   public int getBoardSize() {
     return board.length;
-  }
-  
-  public char getCurrentPlayerSymbol() {
-    return currentPlayerSymbol;
   }
 
   public boolean isCellEmpty(int cell) {
@@ -29,18 +24,10 @@ public class Board {
     }
     return boardFull;
   }
-  // will be removed once all code has been changed to use new interface
-  public void addMark(int position) {
-    if (position > 0 && position <= getBoardSize() && isCellEmpty(position)) {
-      board[position - 1] = currentPlayerSymbol;
-      currentPlayerSymbol = (currentPlayerSymbol == 'X') ? 'O' : 'X';
-    }
-  }
 
   public void addMark(int position, char symbol) {
-    if (position > 0 && position <= getBoardSize() && isCellEmpty(position)) {
+    if (position > 0 && position <= board.length && isCellEmpty(position)) {
       board[position - 1] = symbol;
-      currentPlayerSymbol = (currentPlayerSymbol == 'X') ? 'O' : 'X';
     }
   }
 

@@ -15,10 +15,6 @@ public class UI {
     return "Welcome to Tic Tac Toe";
   }
 
-  public void addMark(int position) {
-    board.addMark(position);
-  }
-
   public String displayBoard() {
     String firstRow = " " + board.getMarkAt(1) + " | " + board.getMarkAt(2) + " | "+ board.getMarkAt(3)+ " \n";
     String horizontalRule = "---|---|---\n";
@@ -27,7 +23,7 @@ public class UI {
     return firstRow + horizontalRule + secondRow + horizontalRule + thirdRow;
   }
 
-  public String prompt() {
-    return "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your " + board.getCurrentPlayerSymbol() + "?";
+  public String prompt(char currentPlayerSymbol) {
+    return "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your " + currentPlayerSymbol + "?";
   }
 }

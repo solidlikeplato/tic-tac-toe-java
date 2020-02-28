@@ -20,13 +20,8 @@ public class UITest {
   }
     
   @Test
-  public void uiPromptsForX() {
-    assertEquals("Initially should prompt for X to move", ui.prompt(), "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your X?");
-  }
-
-  @Test
-  public void testUIPromptChangesAfterMove() {
-    board.addMark(5);
-    assertEquals("After Making A Move the prompt should prompt for O to move", ui.prompt(), "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your O?");
+  public void uiPromptsForInputSymbol() {
+    assertEquals("Initially should prompt for X to move", ui.prompt('X'), "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your X?");
+    assertEquals("Initially should prompt for X to move", ui.prompt('O'), "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your O?");
   }
 }
