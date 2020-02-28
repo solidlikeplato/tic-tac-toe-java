@@ -12,16 +12,18 @@ public class GameTest {
   private ByteArrayInputStream testIn;
   private ByteArrayOutputStream testOut;
   private UI mockedUI;
+  private Board mockedBoard;
 
   @Before
   public void setUp() {
     testOut = new ByteArrayOutputStream();
     mockedUI = mock(UI.class);
+    mockedBoard = mock(Board.class);
   }
   
   public void RunGame(String input) {
     testIn = new ByteArrayInputStream(input.getBytes());
-    Game game = new Game(testIn, testOut, mockedUI);
+    Game game = new Game(testIn, testOut, mockedUI, mockedBoard);
     game.run();
   }
   
@@ -33,23 +35,23 @@ public class GameTest {
 
   @Test
   public void gameDoesntUpdateBoardWithNonNumericInput() {
-    when(mockedUI.isBoardFull()).thenReturn(true);
+    when(mockedBoard.isBoardFull()).thenReturn(true);
     RunGame("A");
-    verify(mockedUI, never()).addMark(anyInt());
+    verify(mockedBoard, never()).addMark(anyInt());
   }
 
   @Test
   public void updateBoardWithSingleUserCorrectInput() {
-    when(mockedUI.isBoardFull()).thenReturn(true);
+    when(mockedBoard.isBoardFull()).thenReturn(true);
     RunGame("5");
     verify(mockedUI).getGreeting();
     verify(mockedUI, atLeastOnce()).displayBoard();
-    verify(mockedUI).addMark(5);
+    verify(mockedBoard).addMark(5);
   }
 
   @Test
   public void gameLoopsUntilGameIsOver() {
-    when(mockedUI.isBoardFull())
+    when(mockedBoard.isBoardFull())
       .thenReturn(false)
       .thenReturn(false)
       .thenReturn(true);

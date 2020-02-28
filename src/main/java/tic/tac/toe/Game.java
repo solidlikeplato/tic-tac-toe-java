@@ -6,24 +6,27 @@ import java.util.Scanner;
 
 public class Game {
   private UI ui;
+  private Board board;
 
   public Game() {
     System.setIn(System.in);
     System.setOut(System.out);
-    ui = new UI(new Board());
+    board = new Board();
+    ui = new UI(board);
   }
 
-  public Game(InputStream in, ByteArrayOutputStream out, UI mockedUI) {
+  public Game(InputStream in, ByteArrayOutputStream out, UI mockedUI, Board mockedBoard) {
     System.setIn(in);
     System.setOut(new PrintStream(out));
     ui = mockedUI;
+    board = mockedBoard;
   }
 
   public void takeATurn(Scanner sc) {
     System.out.println(ui.prompt());
     try {
       int square = sc.nextInt();
-      ui.addMark(square);
+      board.addMark(square);
     }
     catch (Exception e) {
       // If input isn't an int we want it to do nothing
@@ -38,7 +41,7 @@ public class Game {
     System.out.println(ui.displayBoard());
     while(keepPlaying){
       takeATurn(sc);
-      keepPlaying = !ui.isBoardFull();
+      keepPlaying = !board.isBoardFull();
     }
     sc.close();
   }

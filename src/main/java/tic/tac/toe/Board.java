@@ -29,10 +29,17 @@ public class Board {
     }
     return boardFull;
   }
-
+  // will be removed once all code has been changed to use new interface
   public void addMark(int position) {
     if (position > 0 && position <= getBoardSize() && isCellEmpty(position)) {
       board[position - 1] = currentPlayerSymbol;
+      currentPlayerSymbol = (currentPlayerSymbol == 'X') ? 'O' : 'X';
+    }
+  }
+
+  public void addMark(int position, char symbol) {
+    if (position > 0 && position <= getBoardSize() && isCellEmpty(position)) {
+      board[position - 1] = symbol;
       currentPlayerSymbol = (currentPlayerSymbol == 'X') ? 'O' : 'X';
     }
   }

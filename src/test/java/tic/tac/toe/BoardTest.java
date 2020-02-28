@@ -34,9 +34,9 @@ public class BoardTest {
 
   @Test
   public void addMultipleSymbolsToBoard() {
-    board.addMark(2);
-    board.addMark(3);
-    board.addMark(4);
+    board.addMark(2, 'X');
+    board.addMark(3, 'O');
+    board.addMark(4, 'X');
     assertEquals("Board should Add an 'X' to cell 2", board.getMarkAt(2), 'X');
     assertEquals("Board should Add an 'O' to cell 3", board.getMarkAt(3), 'O');
     assertEquals("Board should Add an 'X' to cell 4", board.getMarkAt(4), 'X');
@@ -48,24 +48,27 @@ public class BoardTest {
   }
 
   @Test
-  public void fullBoardEndsTheGame() {
+  public void boardWithNoEmptySpacesIsFull() {
     for (int i = 1; i <= board.getBoardSize(); i++) {
-      board.addMark(i);
+      board.addMark(i, 'X');
     }
     assertTrue("Full board ends game", board.isBoardFull());
   }
 
   @Test
   public void addingOneSymbolAtLastCellDoesntEndGame() {
-    board.addMark(9);
+    board.addMark(9, 'X');
     assertFalse("Adding a symbol only to last cell doesn't end game", board.isBoardFull());
   }
 
   @Test
   public void boardWontAddSymbolToFilledCell() {
-    board.addMark(2);
-    board.addMark(2);
-    assertEquals("Current player should still be O", board.getCurrentPlayerSymbol(), 'O');
+    board.addMark(2,'X');
+    board.addMark(2,'O');
+    
+    // wont be testing this here, but still should be tested
+    // assertEquals("Current player should still be O", board.getCurrentPlayerSymbol(), 'O');
+
     assertEquals("Cell 2 should still be X", board.getMarkAt(2), 'X');
   }
 }

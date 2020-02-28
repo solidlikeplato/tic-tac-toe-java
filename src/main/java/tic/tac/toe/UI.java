@@ -10,11 +10,7 @@ public class UI {
   public UI() {
     board = new Board();
   }
-  
-  public boolean isBoardFull() {
-    return board.isBoardFull();
-  }
-  
+
   public String getGreeting() {
     return "Welcome to Tic Tac Toe";
   }
