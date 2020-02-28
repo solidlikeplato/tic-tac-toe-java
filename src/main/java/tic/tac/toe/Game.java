@@ -38,7 +38,7 @@ public class Game {
     System.out.println(ui.displayBoard());
     while(keepPlaying){
       takeATurn(sc);
-      keepPlaying = !ui.isGameOver();
+      keepPlaying = !ui.isBoardFull();
     }
     sc.close();
   }

@@ -11,8 +11,8 @@ public class UI {
     board = new Board();
   }
   
-  public boolean isGameOver() {
-    return board.isGameOver();
+  public boolean isBoardFull() {
+    return board.isBoardFull();
   }
   
   public String getGreeting() {

@@ -33,14 +33,14 @@ public class GameTest {
 
   @Test
   public void gameDoesntUpdateBoardWithNonNumericInput() {
-    when(mockedUI.isGameOver()).thenReturn(true);
+    when(mockedUI.isBoardFull()).thenReturn(true);
     RunGame("A");
     verify(mockedUI, never()).addMark(anyInt());
   }
 
   @Test
   public void updateBoardWithSingleUserCorrectInput() {
-    when(mockedUI.isGameOver()).thenReturn(true);
+    when(mockedUI.isBoardFull()).thenReturn(true);
     RunGame("5");
     verify(mockedUI).getGreeting();
     verify(mockedUI, atLeastOnce()).displayBoard();
@@ -49,7 +49,7 @@ public class GameTest {
 
   @Test
   public void gameLoopsUntilGameIsOver() {
-    when(mockedUI.isGameOver())
+    when(mockedUI.isBoardFull())
       .thenReturn(false)
       .thenReturn(false)
       .thenReturn(true);

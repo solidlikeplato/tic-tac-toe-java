@@ -44,7 +44,7 @@ public class BoardTest {
 
   @Test
   public void newGameEmptyBoardNotEnded() {
-    assertFalse("New board should not be over immediately", board.isGameOver());
+    assertFalse("New board should not be over immediately", board.isBoardFull());
   }
 
   @Test
@@ -52,13 +52,13 @@ public class BoardTest {
     for (int i = 1; i <= board.getBoardSize(); i++) {
       board.addMark(i);
     }
-    assertTrue("Full board ends game", board.isGameOver());
+    assertTrue("Full board ends game", board.isBoardFull());
   }
 
   @Test
   public void addingOneSymbolAtLastCellDoesntEndGame() {
     board.addMark(9);
-    assertFalse("Adding a symbol only to last cell doesn't end game", board.isGameOver());
+    assertFalse("Adding a symbol only to last cell doesn't end game", board.isBoardFull());
   }
 
   @Test

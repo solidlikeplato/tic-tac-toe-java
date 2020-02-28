@@ -22,7 +22,7 @@ public class Board {
     return (board[cell-1] == ' ');
   }
   
-  public boolean isGameOver() {
+  public boolean isBoardFull() {
     boolean boardFull = true;
     for (int i = 0; i < board.length && boardFull; i++) {
       boardFull = board[i] !=' ';
