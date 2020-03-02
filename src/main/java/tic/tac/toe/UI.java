@@ -7,12 +7,12 @@ public class UI {
     board = newBoard;
   }
 
-  public String getGreeting() {
-    return "Welcome to Tic Tac Toe";
+  public UI() {
+    board = new Board();
   }
 
-  public void addMark(int position) {
-    board.addMark(position);
+  public String getGreeting() {
+    return "Welcome to Tic Tac Toe";
   }
 
   public String displayBoard() {
@@ -23,7 +23,7 @@ public class UI {
     return firstRow + horizontalRule + secondRow + horizontalRule + thirdRow;
   }
 
-  public String prompt() {
-    return "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your X?";
+  public String prompt(char currentPlayerSymbol) {
+    return "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your " + currentPlayerSymbol + "?";
   }
 }
