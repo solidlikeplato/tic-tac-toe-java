@@ -14,6 +14,9 @@ public class Board {
   }
 
   public boolean isCellEmpty(int cell) {
+    if (cell < 1 || cell > board.length) {
+      return false; // non-existant cells are not empty
+    }
     return (board[cell-1] == ' ');
   }
   

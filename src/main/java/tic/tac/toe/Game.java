@@ -8,52 +8,48 @@ import java.util.Scanner;
 public class Game {
   private UI ui;
   private Board board;
-  private char player1 = 'X';
-  private char player2 = 'O';
-  private char currentPlayer = player1;
+  private Player player1 = new HumanPlayer('X');
+  private Player player2 = new HumanPlayer('O');
+  private Player currentPlayer = player1;
 
   public Game() {
-    System.setIn(System.in);
-    System.setOut(System.out);
     board = new Board();
     ui = new UI(board);
   }
 
-  public Game(InputStream in, ByteArrayOutputStream out, UI mockedUI, Board mockedBoard) {
-    System.setIn(in);
-    System.setOut(new PrintStream(out));
+  public Game(UI mockedUI, Board mockedBoard) {
     ui = mockedUI;
     board = mockedBoard;
   }
 
-  public char getCurrentPlayer() {
-    return currentPlayer;
+  private boolean isWinner() {
+    return false; // Winner calculation to be implemented here
   }
 
-  public void takeATurn(Scanner sc) {
-    System.out.println(ui.prompt(currentPlayer));
-    try {
-      int square = sc.nextInt();
-      if (board.isCellEmpty(square)) {
-        board.addMark(square, currentPlayer);
-        currentPlayer = (currentPlayer == player1) ? player2 : player1;
-      }
-    }
-    catch (Exception e) {
-      // If input isn't an int we want it to do nothing
-    }
+  private void changePlayer() {
+    currentPlayer = (currentPlayer == player1) ? player2 : player1;
+  }
+
+  public char getCurrentPlayer() {
+    return currentPlayer.getSymbol();
+  }
+
+  public void takeATurn() {
+    System.out.println(ui.prompt(currentPlayer.getSymbol()));
+    currentPlayer.makeAMove(board);
+    // need to validate if player actually changed board
+    changePlayer();
     System.out.println(ui.displayBoard());
   }
 
   public void run() {
     boolean keepPlaying = true;
-    Scanner sc = new Scanner(System.in);
     System.out.println(ui.getGreeting());
     System.out.println(ui.displayBoard());
     while (keepPlaying) {
-      takeATurn(sc);
-      keepPlaying = !board.isBoardFull();
+      takeATurn();
+      keepPlaying = !board.isBoardFull() && !isWinner();
     }
-    sc.close();
+    // insert output here of winner / tie state
   }
 }

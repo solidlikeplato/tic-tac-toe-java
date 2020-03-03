@@ -60,4 +60,10 @@ public class BoardTest {
     board.addMark(9, 'X');
     assertFalse("Adding a symbol only to last cell doesn't end game", board.isBoardFull());
   }
+
+  @Test
+  public void outOfRangeCellsAreNotEmpty() {
+    assertFalse(board.isCellEmpty(0));
+    assertFalse(board.isCellEmpty(10));
+  }
 }
