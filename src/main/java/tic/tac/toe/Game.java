@@ -37,8 +37,9 @@ public class Game {
   public void takeATurn() {
     System.out.println(ui.prompt(currentPlayer.getSymbol()));
     currentPlayer.makeAMove(board);
-    // need to validate if player actually changed board
-    changePlayer();
+    if (currentPlayer.didMove()) {
+      changePlayer();
+    }
     System.out.println(ui.displayBoard());
   }
 

@@ -27,7 +27,14 @@ public class GameTest {
     verify(mockedUI, times(3)).prompt(anyChar());
   }
 
-  @Test void gameValidatesThatBoardChangedAfterEachMove() {
-    fail();
+  @Test
+  public void gameValidatesIfPlayerMadeMove() {
+    when(mockedBoard.isBoardFull())
+            .thenReturn(true);
+    when(mockedBoard.isCellEmpty(anyInt()))
+            .thenReturn(false);
+    game.run();
+
+    assertEquals(game.getCurrentPlayer(), 'X');
   }
 }

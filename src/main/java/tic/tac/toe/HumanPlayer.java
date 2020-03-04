@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class HumanPlayer implements Player{
+    private boolean didMakeMove = false;
     private char symbol;
     HumanPlayer(char symbol) {
         System.setIn(System.in);
@@ -21,7 +22,12 @@ public class HumanPlayer implements Player{
         return symbol;
     }
 
+    public boolean didMove() {
+        return didMakeMove;
+    }
+
     public void makeAMove(Board board) {
+        didMakeMove = false;
         Scanner sc = new Scanner(System.in);
         int square = 0;
         try {
@@ -32,6 +38,7 @@ public class HumanPlayer implements Player{
         }
         if (board.isCellEmpty(square)) {
             board.addMark(square, symbol);
+            didMakeMove = true;
         }
     }
 }
