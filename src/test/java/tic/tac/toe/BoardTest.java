@@ -44,7 +44,7 @@ public class BoardTest {
 
   @Test
   public void newGameEmptyBoardNotEnded() {
-    assertFalse("New board should not be over immediately", board.isBoardFull());
+    assertFalse("New board should not be full", board.isBoardFull());
   }
 
   @Test
@@ -52,18 +52,41 @@ public class BoardTest {
     for (int i = 1; i <= board.getBoardSize(); i++) {
       board.addMark(i, 'X');
     }
-    assertTrue("Full board ends game", board.isBoardFull());
+    assertTrue("Full board is indicated correctly", board.isBoardFull());
   }
 
   @Test
   public void addingOneSymbolAtLastCellDoesntEndGame() {
     board.addMark(9, 'X');
-    assertFalse("Adding a symbol only to last cell doesn't end game", board.isBoardFull());
+    assertFalse("Adding a symbol only to last cell doesn't result in full board", board.isBoardFull());
   }
 
   @Test
   public void outOfRangeCellsAreNotEmpty() {
     assertFalse(board.isCellEmpty(0));
     assertFalse(board.isCellEmpty(10));
+  }
+
+  @Test
+  public void setBoardToFullBoard() {
+    char[] newBoard = {'X','X','X','X','X','X','X','X','X'};
+    board.setBoard(newBoard);
+    assertTrue(board.isBoardFull());
+  }
+
+  @Test
+  public void setBoardToPartialBoard() {
+    char[] newBoard = {' ','X',' ','X',' ','X','X','X','X'};
+    board.setBoard(newBoard);
+    assertFalse(board.isBoardFull());
+    assertEquals(board.getMarkAt(1), ' ');
+    assertEquals(board.getMarkAt(3), ' ');
+    assertEquals(board.getMarkAt(5), ' ');
+    assertEquals(board.getMarkAt(2), 'X');
+    assertEquals(board.getMarkAt(4), 'X');
+    assertEquals(board.getMarkAt(6), 'X');
+    assertEquals(board.getMarkAt(7), 'X');
+    assertEquals(board.getMarkAt(8), 'X');
+    assertEquals(board.getMarkAt(9), 'X');
   }
 }

@@ -19,7 +19,11 @@ public class Board {
     }
     return (board[cell-1] == ' ');
   }
-  
+
+  public void setBoard(char[] board) {
+    this.board = board;
+  }
+
   public boolean isBoardFull() {
     boolean boardFull = true;
     for (int i = 0; i < board.length && boardFull; i++) {
