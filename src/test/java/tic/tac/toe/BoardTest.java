@@ -13,7 +13,7 @@ public class BoardTest {
   @Test
   public void newBoardIsEmpty() {
     for (int cell = 1; cell <= board.getBoardSize(); cell++) {
-      assertTrue("Each Cell Should Be Empty", board.isCellEmpty(cell));
+      assertTrue("Each Cell Should Be Empty", board.canCellTakeMark(cell));
     }
   }
 
@@ -28,18 +28,25 @@ public class BoardTest {
     board.addMark(10, 'X');
     board.addMark(0, 'X');
     for (int cell = 1; cell <= board.getBoardSize(); cell++) {
-      assertTrue("Each Cell Should Be Empty", board.isCellEmpty(cell));
+      assertTrue("Each Cell Should Be Empty", board.canCellTakeMark(cell));
     }
+  }
+
+  @Test
+  public void doesntAddSymbolOverExistingSymbol() {
+    char[] newBoard = {'x','x','x',' ',' ',' ',' ',' ',' '};
+    board.setBoard(newBoard);
+
+    board.addMark(2, 'O');
+    assertEquals(board.getMarkAt(2), 'x');
   }
 
   @Test
   public void addMultipleSymbolsToBoard() {
     board.addMark(2, 'X');
     board.addMark(3, 'O');
-    board.addMark(4, 'X');
     assertEquals("Board should Add an 'X' to cell 2", board.getMarkAt(2), 'X');
     assertEquals("Board should Add an 'O' to cell 3", board.getMarkAt(3), 'O');
-    assertEquals("Board should Add an 'X' to cell 4", board.getMarkAt(4), 'X');
   }
 
   @Test
@@ -49,44 +56,46 @@ public class BoardTest {
 
   @Test
   public void boardWithNoEmptySpacesIsFull() {
-    for (int i = 1; i <= board.getBoardSize(); i++) {
-      board.addMark(i, 'X');
-    }
-    assertTrue("Full board is indicated correctly", board.isBoardFull());
+    char[] fullBoard = {'x','x','x','x','x','x','x','x','x'};
+    board.setBoard(fullBoard);
+    assertTrue("Full board", board.isBoardFull());
   }
 
   @Test
-  public void addingOneSymbolAtLastCellDoesntEndGame() {
+  public void addingOneSymbolAtLastCellDoesntFillBoard() {
     board.addMark(9, 'X');
     assertFalse("Adding a symbol only to last cell doesn't result in full board", board.isBoardFull());
   }
 
   @Test
-  public void outOfRangeCellsAreNotEmpty() {
-    assertFalse(board.isCellEmpty(0));
-    assertFalse(board.isCellEmpty(10));
+  public void outOfRangeCellsCantTakeMark() {
+    assertFalse(board.canCellTakeMark(0));
+    assertFalse(board.canCellTakeMark(10));
   }
 
   @Test
   public void setBoardToFullBoard() {
     char[] newBoard = {'X','X','X','X','X','X','X','X','X'};
     board.setBoard(newBoard);
+    int[] xSquares = {1,2,3,4,5,6,7,8,9};
     assertTrue(board.isBoardFull());
+    for (int square: xSquares) {
+      assertEquals(board.getMarkAt(square), 'X');
+    }
   }
 
   @Test
   public void setBoardToPartialBoard() {
     char[] newBoard = {' ','X',' ','X',' ','X','X','X','X'};
     board.setBoard(newBoard);
+    int[] emptySquares = {1,3,5};
+    int[] xSquares = {2,4,6,7,8,9};
     assertFalse(board.isBoardFull());
-    assertEquals(board.getMarkAt(1), ' ');
-    assertEquals(board.getMarkAt(3), ' ');
-    assertEquals(board.getMarkAt(5), ' ');
-    assertEquals(board.getMarkAt(2), 'X');
-    assertEquals(board.getMarkAt(4), 'X');
-    assertEquals(board.getMarkAt(6), 'X');
-    assertEquals(board.getMarkAt(7), 'X');
-    assertEquals(board.getMarkAt(8), 'X');
-    assertEquals(board.getMarkAt(9), 'X');
+    for (int square: emptySquares) {
+      assertEquals(board.getMarkAt(square), ' ');
+    }
+    for (int square: xSquares) {
+    assertEquals(board.getMarkAt(square), 'X');
+    }
   }
 }

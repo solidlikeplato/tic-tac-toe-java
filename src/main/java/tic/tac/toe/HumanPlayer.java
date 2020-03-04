@@ -11,7 +11,7 @@ public class HumanPlayer implements Player{
         System.setIn(System.in);
         this.symbol = symbol;
     }
-
+    // refactor to one constructor, think about why take inputStream (or not)... wrapper around system.in?
     HumanPlayer(char symbol, InputStream in) {
         System.setIn(in);
         this.symbol = symbol;
@@ -36,7 +36,7 @@ public class HumanPlayer implements Player{
         catch (Exception e) {
             // If input isn't an int we want it to do nothing
         }
-        if (board.isCellEmpty(square)) {
+        if (board.canCellTakeMark(square)) {
             board.addMark(square, symbol);
             didMakeMove = true;
         }
