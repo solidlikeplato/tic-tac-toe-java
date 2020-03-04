@@ -8,13 +8,15 @@ public class GameTest {
   private Game game;
   private UI mockedUI;
   private Board mockedBoard;
-  
+  private Player player1 = new HumanPlayer('X');
+  private Player player2 = new HumanPlayer('O');
+
 
   @Before
   public void setUp() {
     mockedUI = mock(UI.class);
     mockedBoard = mock(Board.class);
-    game = new Game(mockedUI, mockedBoard);
+    game = new Game(mockedUI, mockedBoard, player1, player2);
   }
 
   @Test
@@ -31,10 +33,10 @@ public class GameTest {
   public void gameValidatesIfPlayerMadeMove() {
     when(mockedBoard.isBoardFull())
             .thenReturn(true);
-    when(mockedBoard.isCellEmpty(anyInt()))
+    when(mockedBoard.canCellTakeMark(anyInt()))
             .thenReturn(false);
     game.run();
 
-    assertEquals(game.getCurrentPlayer(), 'X');
+    assertEquals(game.getCurrentPlayerSymbol(), 'X');
   }
 }

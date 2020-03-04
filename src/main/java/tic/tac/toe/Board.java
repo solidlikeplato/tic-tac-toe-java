@@ -13,9 +13,13 @@ public class Board {
     return board.length;
   }
 
-  public boolean isCellEmpty(int cell) {
+  public void setBoard(char[] board) {
+    this.board = board;
+  }
+
+  public boolean canCellTakeMark(int cell) {
     if (cell < 1 || cell > board.length) {
-      return false; // non-existant cells are not empty
+      return false;
     }
     return (board[cell-1] == ' ');
   }
@@ -29,7 +33,7 @@ public class Board {
   }
 
   public void addMark(int position, char symbol) {
-    if (position > 0 && position <= board.length && isCellEmpty(position)) {
+    if (canCellTakeMark(position)) {
       board[position - 1] = symbol;
     }
   }

@@ -28,7 +28,7 @@ public class HumanPlayerTest {
     @Test
     public void humanPlayerHasASymbol() {
         HumanPlayer player = new HumanPlayer('X');
-        assertEquals(player.getSymbol(), 'X');
+        assertNotNull(player.getSymbol());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class HumanPlayerTest {
         testIn = new ByteArrayInputStream("5".getBytes());
         player = new HumanPlayer('X', testIn);
         when(mockedBoard.isBoardFull()).thenReturn(true);
-        when(mockedBoard.isCellEmpty(anyInt())).thenReturn(true);
+        when(mockedBoard.canCellTakeMark(anyInt())).thenReturn(true);
 
         player.makeAMove(mockedBoard);
 
@@ -54,7 +54,7 @@ public class HumanPlayerTest {
 
     @Test public void humanPlayerWontAddSymbolToFilledCell() {
         testIn = new ByteArrayInputStream("5".getBytes());
-        when(mockedBoard.isCellEmpty(anyInt())).thenReturn(false);
+        when(mockedBoard.canCellTakeMark(anyInt())).thenReturn(false);
         player = new HumanPlayer('X', testIn);
 
         player.makeAMove(mockedBoard);
