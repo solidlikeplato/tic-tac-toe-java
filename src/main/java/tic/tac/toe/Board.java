@@ -41,4 +41,5 @@ public class Board {
   public char getMarkAt(int position) {
     return board[position-1];
   }
+
 }

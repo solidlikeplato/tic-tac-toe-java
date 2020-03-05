@@ -8,9 +8,11 @@ public class GameTest {
   private Game game;
   private UI ui;
   private Board board;
-  private char[] fullBoard = {'a', 'b', 'c', 'd', 'e','f', 'g','h','i'};
+  private char[] fullBoardNoWinner = {'a','b','c','d','e','f','g','h','i'};
+  private char[] notQuiteFullBoardOneSymbol = {'a','a','a','a','a','a','a','a',' '};
   private Player player1 = new HumanPlayer('X');
   private Player player2 = new HumanPlayer('O');
+  private Player mockPlayer1 = mock(HumanPlayer.class);
 
 
   @Before
@@ -21,44 +23,42 @@ public class GameTest {
   }
 
   @Test
-  public void gameDoesntContinueWhenBoardIsFull() {
-    board.setBoard(fullBoard);
+  public void gameDoesntPromptWhenBoardIsFull() {
+    board.setBoard(fullBoardNoWinner);
     game.run();
-    verify(ui).prompt(anyChar());
+    verify(ui, never()).prompt(anyChar());
   }
 
   @Test
-  public void gameDoesntContinueWhenGameIsWon() {
+  public void gameDoesntPromptAfterGameIsWon() {
     char[] topRowWinner = {'X', 'X', 'X', ' ', ' ', ' ', ' ', ' ', ' '};
-    board = new Board();
     board.setBoard(topRowWinner);
-    game = new Game(ui, board, player1, player2);
-    HumanPlayer mockPlayer1 = mock(HumanPlayer.class);
-    game.setPlayer1(mockPlayer1);
+    game = new Game(ui, board, mockPlayer1, player2);
     game.run();
-    verify(ui).prompt(anyChar());
+    verify(ui, never()).prompt(anyChar());
   }
 
   @Test
   public void gameChangesPlayerIfMadeMove() {
-    HumanPlayer mockPlayer1 = mock(HumanPlayer.class);
-    board.setBoard(fullBoard);
-    game = new Game(ui, board, player1, player2);
-    game.setPlayer1(mockPlayer1);
+    Board mockedBoard = mock(Board.class);
+    game = new Game(ui, mockedBoard, mockPlayer1, player2);
+    when(mockedBoard.isBoardFull()).thenReturn(false).thenReturn(true);
+    when(mockedBoard.canCellTakeMark(anyInt())).thenReturn(true);
     when(mockPlayer1.didMove()).thenReturn(true);
     game.run();
-    assertEquals(game.getCurrentPlayerSymbol(), 'O');
+    assertEquals(game.getCurrentPlayerSymbol(), player2.getSymbol());
   }
 
   @Test
   public void gameDoesntChangePlayerIfNoMoveMade() {
-    HumanPlayer player1 = mock(HumanPlayer.class);
-    board.setBoard(fullBoard);
-    game.setPlayer1(player1);
-    when(player1.didMove()).thenReturn(false);
-    when(player1.getSymbol()).thenReturn('X');
+    Board mockedBoard = mock(Board.class);
+    game = new Game(ui, mockedBoard, mockPlayer1, player2);
+    when(mockedBoard.isBoardFull()).thenReturn(false).thenReturn(true);
+    when(mockedBoard.canCellTakeMark(anyInt())).thenReturn(true);
+    when(mockPlayer1.didMove()).thenReturn(false);
+    when(mockPlayer1.getSymbol()).thenReturn('&');
     game.run();
-    assertEquals(game.getCurrentPlayerSymbol(), 'X');
+    assertEquals(game.getCurrentPlayerSymbol(), mockPlayer1.getSymbol());
   }
 
   @Test
@@ -69,7 +69,6 @@ public class GameTest {
   @Test
   public void gameRecognizesWinnerColumn() {
     char[] rightColWinner = {'X', ' ', ' ', 'X', ' ', ' ', 'X', ' ', ' '};
-    Board board = new Board();
     board.setBoard(rightColWinner);
     game = new Game(ui, board, player1, player2);
     assertTrue(game.isWinner());
@@ -78,7 +77,6 @@ public class GameTest {
   @Test
   public void gameRecoginzesWinnerRow() {
     char[] topRowWinner = {'X', 'X', 'X', ' ', ' ', ' ', ' ', ' ', ' '};
-    Board board = new Board();
     board.setBoard(topRowWinner);
     game = new Game(ui, board, player1, player2);
     assertTrue(game.isWinner());
@@ -87,9 +85,26 @@ public class GameTest {
   @Test
   public void gameRecoginzesWinnerDiagonal() {
     char[] backSlashDiagonalWinner = {'X', ' ', ' ', ' ', 'X', ' ', ' ', ' ', 'X'};
-    Board board = new Board();
     board.setBoard(backSlashDiagonalWinner);
     game = new Game(ui, board, player1, player2);
     assertTrue(game.isWinner());
+  }
+
+  @Test
+  public void gameDisplaysWinner() {
+    board.setBoard(notQuiteFullBoardOneSymbol);
+    game = new Game(ui, board, mockPlayer1, player2);
+    when(mockPlayer1.getSymbol()).thenReturn('&');
+    game.run();
+    verify(ui).displayOutcome(mockPlayer1.getSymbol());
+  }
+
+  @Test
+  public void gameDisplaysTieMessage() {
+    board.setBoard(fullBoardNoWinner);
+    game = new Game(ui, board, mockPlayer1, player2);
+    when(mockPlayer1.getSymbol()).thenReturn('&');
+    game.run();
+    verify(ui).displayOutcome(' ');
   }
 }

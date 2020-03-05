@@ -92,10 +92,12 @@ public class BoardTest {
     int[] xSquares = {2,4,6,7,8,9};
     assertFalse(board.isBoardFull());
     for (int square: emptySquares) {
+      assertTrue(board.canCellTakeMark(square));
       assertEquals(board.getMarkAt(square), ' ');
     }
     for (int square: xSquares) {
-    assertEquals(board.getMarkAt(square), 'X');
+      assertFalse(board.canCellTakeMark(square));
+      assertEquals(board.getMarkAt(square), 'X');
     }
   }
 }
