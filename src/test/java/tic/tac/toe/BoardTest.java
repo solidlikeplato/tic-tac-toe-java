@@ -13,7 +13,7 @@ public class BoardTest {
   @Test
   public void newBoardIsEmpty() {
     for (int cell = 1; cell <= board.getBoardSize(); cell++) {
-      assertTrue("Each Cell Should Be Empty", board.canCellTakeMark(cell));
+      assertTrue("Each Cell Should Be Empty", board.isCellEmpty(cell));
     }
   }
 
@@ -28,17 +28,17 @@ public class BoardTest {
     board.addMark(10, 'X');
     board.addMark(0, 'X');
     for (int cell = 1; cell <= board.getBoardSize(); cell++) {
-      assertTrue("Each Cell Should Be Empty", board.canCellTakeMark(cell));
+      assertTrue("Each Cell Should Be Empty", board.isCellEmpty(cell));
     }
   }
 
   @Test
-  public void doesntAddSymbolOverExistingSymbol() {
+  public void addsSymbolOverExistingSymbol() {
     char[] newBoard = {'x','x','x',' ',' ',' ',' ',' ',' '};
     board.setBoard(newBoard);
 
     board.addMark(2, 'O');
-    assertEquals(board.getMarkAt(2), 'x');
+    assertEquals(board.getMarkAt(2), 'O');
   }
 
   @Test
@@ -68,8 +68,8 @@ public class BoardTest {
   }
 
   @Test
-  public void outOfRangeCellsCantTakeMark() {
-    assertFalse(board.canCellTakeMark(0));
-    assertFalse(board.canCellTakeMark(10));
+  public void outOfRangeCellsAreEmpty() {
+    assertFalse(board.isCellEmpty(0));
+    assertFalse(board.isCellEmpty(10));
   }
 }

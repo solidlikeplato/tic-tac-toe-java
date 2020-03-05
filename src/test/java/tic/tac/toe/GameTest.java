@@ -33,7 +33,7 @@ public class GameTest {
   public void gameValidatesIfPlayerMadeMove() {
     when(mockedBoard.isBoardFull())
             .thenReturn(true);
-    when(mockedBoard.canCellTakeMark(anyInt()))
+    when(mockedBoard.isCellEmpty(anyInt()))
             .thenReturn(false);
     game.run();
 
