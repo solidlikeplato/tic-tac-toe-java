@@ -43,7 +43,7 @@ public class GameTest {
     Board mockedBoard = mock(Board.class);
     game = new Game(ui, mockedBoard, mockPlayer1, player2);
     when(mockedBoard.isBoardFull()).thenReturn(false).thenReturn(true);
-    when(mockedBoard.canCellTakeMark(anyInt())).thenReturn(true);
+    when(mockedBoard.isCellEmpty(anyInt())).thenReturn(true);
     when(mockPlayer1.didMove()).thenReturn(true);
     game.run();
     assertEquals(game.getCurrentPlayerSymbol(), player2.getSymbol());
@@ -54,7 +54,7 @@ public class GameTest {
     Board mockedBoard = mock(Board.class);
     game = new Game(ui, mockedBoard, mockPlayer1, player2);
     when(mockedBoard.isBoardFull()).thenReturn(false).thenReturn(true);
-    when(mockedBoard.canCellTakeMark(anyInt())).thenReturn(true);
+    when(mockedBoard.isCellEmpty(anyInt())).thenReturn(true);
     when(mockPlayer1.didMove()).thenReturn(false);
     when(mockPlayer1.getSymbol()).thenReturn('&');
     game.run();

@@ -36,7 +36,7 @@ public class HumanPlayer implements Player{
         catch (Exception e) {
             // If input isn't an int we want it to do nothing
         }
-        if (board.canCellTakeMark(square)) {
+        if (board.isCellEmpty(square)) {
             board.addMark(square, symbol);
             didMakeMove = true;
         }

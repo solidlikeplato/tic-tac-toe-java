@@ -13,7 +13,7 @@ public class BoardTest {
   @Test
   public void newBoardIsEmpty() {
     for (int cell = 1; cell <= board.getBoardSize(); cell++) {
-      assertTrue("Each Cell Should Be Empty", board.canCellTakeMark(cell));
+      assertTrue("Each Cell Should Be Empty", board.isCellEmpty(cell));
     }
   }
 
@@ -28,7 +28,7 @@ public class BoardTest {
     board.addMark(10, 'X');
     board.addMark(0, 'X');
     for (int cell = 1; cell <= board.getBoardSize(); cell++) {
-      assertTrue("Each Cell Should Be Empty", board.canCellTakeMark(cell));
+      assertTrue("Each Cell Should Be Empty", board.isCellEmpty(cell));
     }
   }
 
@@ -69,8 +69,8 @@ public class BoardTest {
 
   @Test
   public void outOfRangeCellsCantTakeMark() {
-    assertFalse(board.canCellTakeMark(0));
-    assertFalse(board.canCellTakeMark(10));
+    assertFalse(board.isCellEmpty(0));
+    assertFalse(board.isCellEmpty(10));
   }
 
   @Test
@@ -92,11 +92,11 @@ public class BoardTest {
     int[] xSquares = {2,4,6,7,8,9};
     assertFalse(board.isBoardFull());
     for (int square: emptySquares) {
-      assertTrue(board.canCellTakeMark(square));
+      assertTrue(board.isCellEmpty(square));
       assertEquals(board.getMarkAt(square), ' ');
     }
     for (int square: xSquares) {
-      assertFalse(board.canCellTakeMark(square));
+      assertFalse(board.isCellEmpty(square));
       assertEquals(board.getMarkAt(square), 'X');
     }
   }

@@ -37,16 +37,12 @@ public class Game {
       char mark2 = board.getMarkAt(column[1]);
       char mark3 = board.getMarkAt(column[2]);
       if (mark1 == mark2 && mark2 == mark3) {
-        if (!(board.canCellTakeMark(column[0]) || board.canCellTakeMark(column[1]) || board.canCellTakeMark(column[2]))) {
+        if (!(board.isCellEmpty(column[0]) || board.isCellEmpty(column[1]) || board.isCellEmpty(column[2]))) {
           return true;
         }
       }
     }
     return false;
-  }
-
-  private boolean isGameOver() {
-    return board.isBoardFull() || isWinner();
   }
 
   private boolean isGameOver() {
