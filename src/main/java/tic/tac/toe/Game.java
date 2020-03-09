@@ -8,52 +8,51 @@ import java.util.Scanner;
 public class Game {
   private UI ui;
   private Board board;
-  private char player1 = 'X';
-  private char player2 = 'O';
-  private char currentPlayer = player1;
+  private Player player1;
+  private Player player2;
+  private Player currentPlayer;
 
-  public Game() {
-    System.setIn(System.in);
-    System.setOut(System.out);
-    board = new Board();
-    ui = new UI(board);
+  public Game(UI ui, Board board, Player player1, Player player2) {
+    this.ui = ui;
+    this.board = board;
+    this.player1 = player1;
+    this.player2 = player2;
+    currentPlayer = player1;
   }
 
-  public Game(InputStream in, ByteArrayOutputStream out, UI mockedUI, Board mockedBoard) {
-    System.setIn(in);
-    System.setOut(new PrintStream(out));
-    ui = mockedUI;
-    board = mockedBoard;
+  private boolean isWinner() {
+    return false; // Winner calculation to be implemented here
   }
 
-  public char getCurrentPlayer() {
-    return currentPlayer;
+  private boolean isGameOver() {
+    return board.isBoardFull() || isWinner();
   }
 
-  public void takeATurn(Scanner sc) {
-    System.out.println(ui.prompt(currentPlayer));
-    try {
-      int square = sc.nextInt();
-      if (board.isCellEmpty(square)) {
-        board.addMark(square, currentPlayer);
-        currentPlayer = (currentPlayer == player1) ? player2 : player1;
-      }
-    }
-    catch (Exception e) {
-      // If input isn't an int we want it to do nothing
+  private void changePlayer() {
+    currentPlayer = (currentPlayer == player1) ? player2 : player1;
+  }
+
+  public char getCurrentPlayerSymbol() {
+    return currentPlayer.getSymbol();
+  }
+
+  public void takeATurn() {
+    System.out.println(ui.prompt(currentPlayer.getSymbol()));
+    currentPlayer.makeAMove(board);
+    if (currentPlayer.didMove()) {
+      changePlayer();
     }
     System.out.println(ui.displayBoard());
   }
 
   public void run() {
     boolean keepPlaying = true;
-    Scanner sc = new Scanner(System.in);
     System.out.println(ui.getGreeting());
     System.out.println(ui.displayBoard());
     while (keepPlaying) {
-      takeATurn(sc);
-      keepPlaying = !board.isBoardFull();
+      takeATurn();
+      keepPlaying = !isGameOver();
     }
-    sc.close();
+    // insert output here of winner / tie state
   }
 }

@@ -2,19 +2,28 @@ package tic.tac.toe;
 import java.util.Arrays;
 
 public class Board {
+  public static final char EMPTY_CELL = ' ';
   private char[] board;
 
   public Board() {
     board = new char[9];
-    Arrays.fill(board, ' ');
+    Arrays.fill(board, EMPTY_CELL);
   }
 
   public int getBoardSize() {
     return board.length;
   }
 
+  public void setBoard(char[] board) {
+    this.board = board;
+  }
+
+  public boolean isCellInRange(int cell) {
+    return cell >= 1 && cell <= board.length;
+  }
+
   public boolean isCellEmpty(int cell) {
-    return (board[cell-1] == ' ');
+    return isCellInRange(cell) && board[cell-1] == EMPTY_CELL;
   }
   
   public boolean isBoardFull() {
@@ -26,7 +35,7 @@ public class Board {
   }
 
   public void addMark(int position, char symbol) {
-    if (position > 0 && position <= board.length && isCellEmpty(position)) {
+    if (isCellInRange(position)) {
       board[position - 1] = symbol;
     }
   }
