@@ -19,7 +19,6 @@ public class Game {
     this.player1 = player1;
     this.player2 = player2;
     currentPlayer = player1;
-
   }
 
   public void setPlayer1(Player newPlayer) {
@@ -50,6 +49,10 @@ public class Game {
     return board.isBoardFull() || isWinner();
   }
 
+  private boolean isGameOver() {
+    return board.isBoardFull() || isWinner();
+  }
+
   private void changePlayer() {
     currentPlayer = (currentPlayer == player1) ? player2 : player1;
   }
@@ -67,7 +70,6 @@ public class Game {
     System.out.println(ui.getGreeting());
     System.out.println(ui.displayBoard(board));
     while (keepPlaying) {
-
       if (!isGameOver()) {
         System.out.println(ui.prompt(currentPlayer.getSymbol()));
         takeATurn();
@@ -84,8 +86,7 @@ public class Game {
 
       keepPlaying = !isGameOver();
       System.out.println("\n" + ui.displayBoard(board));
-
-
+      
     }
     System.out.println(ui.displayOutcome(winningPlayer == null ? ' ' : winningPlayer.getSymbol()));
   }

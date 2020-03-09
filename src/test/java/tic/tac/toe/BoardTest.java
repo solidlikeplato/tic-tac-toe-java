@@ -33,12 +33,12 @@ public class BoardTest {
   }
 
   @Test
-  public void doesntAddSymbolOverExistingSymbol() {
+  public void addsSymbolOverExistingSymbol() {
     char[] newBoard = {'x','x','x',' ',' ',' ',' ',' ',' '};
     board.setBoard(newBoard);
 
     board.addMark(2, 'O');
-    assertEquals(board.getMarkAt(2), 'x');
+    assertEquals(board.getMarkAt(2), 'O');
   }
 
   @Test
@@ -99,5 +99,11 @@ public class BoardTest {
       assertFalse(board.canCellTakeMark(square));
       assertEquals(board.getMarkAt(square), 'X');
     }
+  }
+
+  @Test
+  public void outOfRangeCellsAreEmpty() {
+    assertFalse(board.isCellEmpty(0));
+    assertFalse(board.isCellEmpty(10));
   }
 }
