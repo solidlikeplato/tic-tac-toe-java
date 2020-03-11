@@ -70,6 +70,7 @@ public class Game {
       inputOutput.sendOutput("\n" + messages.formattedBoard(board));
       
     }
+
     inputOutput.sendOutput(messages.outcome(winningPlayer == null ? Messages.TIE_GAME : winningPlayer.getSymbol()));
   }
 }

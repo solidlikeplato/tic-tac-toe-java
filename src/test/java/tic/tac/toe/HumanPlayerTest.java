@@ -38,9 +38,7 @@ public class HumanPlayerTest {
         player = new HumanPlayer('X', inputOutput);
         when(mockedBoard.isBoardFull()).thenReturn(true);
         when(mockedBoard.isCellEmpty(anyInt())).thenReturn(true);
-
         player.makeAMove(mockedBoard);
-
         verify(mockedBoard).addMark(5,'X');
         assertTrue(player.didMove());
     }

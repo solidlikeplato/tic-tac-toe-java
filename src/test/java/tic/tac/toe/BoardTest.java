@@ -39,7 +39,9 @@ public class BoardTest {
 
   @Test
   public void addsSymbolOverExistingSymbol() {
-    char[] newBoard = {'x','x','x',' ',' ',' ',' ',' ',' '};
+    char[] newBoard = { 'x','x','x',
+                        ' ',' ',' ',
+                        ' ',' ',' '};
     board.setBoard(newBoard);
 
     board.addMark(2, 'O');
@@ -61,7 +63,9 @@ public class BoardTest {
 
   @Test
   public void boardWithNoEmptySpacesIsFull() {
-    char[] fullBoard = {'x','x','x','x','x','x','x','x','x'};
+    char[] fullBoard = {'x','x','x',
+                        'x','x','x',
+                        'x','x','x'};
     board.setBoard(fullBoard);
     assertTrue("Full board", board.isBoardFull());
   }
@@ -80,7 +84,9 @@ public class BoardTest {
 
   @Test
   public void setBoardToFullBoard() {
-    char[] newBoard = {'X','X','X','X','X','X','X','X','X'};
+    char[] newBoard = { 'X','X','X',
+                        'X','X','X',
+                        'X','X','X'};
     board.setBoard(newBoard);
     int[] xSquares = {1,2,3,4,5,6,7,8,9};
     assertTrue(board.isBoardFull());
@@ -91,7 +97,9 @@ public class BoardTest {
 
   @Test
   public void setBoardToPartialBoard() {
-    char[] newBoard = {' ','X',' ','X',' ','X','X','X','X'};
+    char[] newBoard = { ' ','X',' ',
+                        'X',' ','X',
+                        'X','X','X'};
     board.setBoard(newBoard);
     int[] emptySquares = {1,3,5};
     int[] xSquares = {2,4,6,7,8,9};

@@ -7,8 +7,9 @@ public class Messages {
   public Messages() {
   }
 
-  public String greeting() {
-    return "Welcome to The WOPR! Would you like to play a game?";
+
+  public String getGreeting() {
+    return "Welcome to The WOPR! Shall we play a game?";
   }
 
   public String formattedBoard(Board board) {
