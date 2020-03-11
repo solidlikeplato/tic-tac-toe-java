@@ -1,19 +1,16 @@
 package tic.tac.toe;
 
-
-import java.io.InputStream;
-import java.util.Scanner;
-
 public class HumanPlayer implements Player{
     private boolean didMakeMove = false;
     private char symbol;
+    private InputOutput inputOutput;
     HumanPlayer(char symbol) {
         System.setIn(System.in);
         this.symbol = symbol;
     }
-    // refactor to one constructor, think about why take inputStream (or not)... wrapper around system.in?
-    HumanPlayer(char symbol, InputStream in) {
-        System.setIn(in);
+
+    HumanPlayer(char symbol, InputOutput inputOutput) {
+        this.inputOutput = inputOutput;
         this.symbol = symbol;
 
     }
@@ -28,14 +25,7 @@ public class HumanPlayer implements Player{
 
     public void makeAMove(Board board) {
         didMakeMove = false;
-        Scanner sc = new Scanner(System.in);
-        int square = 0;
-        try {
-            square = sc.nextInt();
-        }
-        catch (Exception e) {
-            // If input isn't an int we want it to do nothing
-        }
+        int square = inputOutput.getInput();
         if (board.isCellEmpty(square)) {
             board.addMark(square, symbol);
             didMakeMove = true;
