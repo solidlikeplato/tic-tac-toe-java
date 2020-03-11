@@ -1,21 +1,15 @@
 package tic.tac.toe;
 
 public class UI {
-  Board board;
-
-  public UI(Board newBoard) {
-    board = newBoard;
-  }
 
   public UI() {
-    board = new Board();
   }
 
   public String getGreeting() {
-    return "Welcome to Tic Tac Toe";
+    return "Welcome to The WOPR! Would you like to play a game?";
   }
 
-  public String displayBoard() {
+  public String displayBoard(Board board) {
     String firstRow = " " + board.getMarkAt(1) + " | " + board.getMarkAt(2) + " | "+ board.getMarkAt(3)+ " \n";
     String horizontalRule = "---|---|---\n";
     String secondRow = " " + board.getMarkAt(4) + " | " + board.getMarkAt(5) + " | "+ board.getMarkAt(6)+ " \n";
@@ -25,5 +19,13 @@ public class UI {
 
   public String prompt(char currentPlayerSymbol) {
     return "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your " + currentPlayerSymbol + "?";
+  }
+
+  public String displayOutcome(char winningSymbol) {
+    if (winningSymbol == ' ') {
+      return "There is no winner! The only winning move is not to play!";
+    } else {
+      return "Congratulations to " + winningSymbol + ", our winner!";
+    }
   }
 }

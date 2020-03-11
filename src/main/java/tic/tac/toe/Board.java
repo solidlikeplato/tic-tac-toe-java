@@ -18,6 +18,7 @@ public class Board {
     this.board = board;
   }
 
+
   public boolean isCellInRange(int cell) {
     return cell >= 1 && cell <= board.length;
   }
@@ -25,7 +26,7 @@ public class Board {
   public boolean isCellEmpty(int cell) {
     return isCellInRange(cell) && board[cell-1] == EMPTY_CELL;
   }
-  
+
   public boolean isBoardFull() {
     boolean boardFull = true;
     for (int i = 0; i < board.length && boardFull; i++) {
@@ -43,4 +44,5 @@ public class Board {
   public char getMarkAt(int position) {
     return board[position-1];
   }
+
 }

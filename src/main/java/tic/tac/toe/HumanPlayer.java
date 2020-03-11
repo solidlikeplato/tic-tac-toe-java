@@ -11,7 +11,7 @@ public class HumanPlayer implements Player{
         System.setIn(System.in);
         this.symbol = symbol;
     }
-
+    // refactor to one constructor, think about why take inputStream (or not)... wrapper around system.in?
     HumanPlayer(char symbol, InputStream in) {
         System.setIn(in);
         this.symbol = symbol;

@@ -13,11 +13,11 @@ public class HumanPlayerTest {
     private ByteArrayInputStream testIn;
 
     private Player player;
-    private Board mockedBoard;
+    private Board testBoard;
 
     @Before
     public void setUp() {
-        mockedBoard = mock(Board.class);
+        testBoard = new Board();
         player = new HumanPlayer('X');
     }
     @After
@@ -33,33 +33,31 @@ public class HumanPlayerTest {
 
     @Test
     public void humanPlayerDoesNotUpdateBoardWithNonNumericInput() {
+        testBoard = mock(Board.class);
         testIn = new ByteArrayInputStream("A".getBytes());
         player = new HumanPlayer('X', testIn);
-        player.makeAMove(mockedBoard);
-        verify(mockedBoard, never()).addMark(anyInt(), anyChar());
+        player.makeAMove(testBoard);
+        verify(testBoard, never()).addMark(anyInt(), anyChar());
     }
 
     @Test
     public void humanPlayerMakesMoveWhenGivenValidInput() {
         testIn = new ByteArrayInputStream("5".getBytes());
         player = new HumanPlayer('X', testIn);
-        when(mockedBoard.isBoardFull()).thenReturn(true);
-        when(mockedBoard.isCellEmpty(anyInt())).thenReturn(true);
-
-        player.makeAMove(mockedBoard);
-
-        verify(mockedBoard).addMark(5,'X');
+        char[] newBoard = {'X','X','X','X',' ','X','X','X','X'};
+        testBoard.setBoard(newBoard);
+        player.makeAMove(testBoard);
+        assertEquals(testBoard.getMarkAt(5), 'X');
         assertTrue(player.didMove());
     }
 
     @Test public void humanPlayerWontAddSymbolToFilledCell() {
-        testIn = new ByteArrayInputStream("5".getBytes());
-        when(mockedBoard.isCellEmpty(anyInt())).thenReturn(false);
-        player = new HumanPlayer('X', testIn);
-
-        player.makeAMove(mockedBoard);
-
-        verify(mockedBoard, never()).addMark(anyInt(), anyChar());
+        testIn = new ByteArrayInputStream("7".getBytes());
+        player = new HumanPlayer('O', testIn);
+        char[] newBoard = {'X','X','X','X',' ','X','X','X','X'};
+        testBoard.setBoard(newBoard);
+        player.makeAMove(testBoard);
+        assertEquals(testBoard.getMarkAt(7), 'X');
         assertFalse(player.didMove());
     }
 }
