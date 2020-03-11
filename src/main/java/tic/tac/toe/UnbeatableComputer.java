@@ -111,17 +111,6 @@ public class UnbeatableComputer implements Player {
         // check for potential move for opponent for guaranteed win if found prevent it
 
         // if no other move made choose from available moves in priority order of center, corners, edges
-        if (move == NO_MOVE && shouldMove) {
-            move = 8;
-        }
-//        int indexOfMoveToTry = 0;
-//        while (move == NO_MOVE && shouldMove) {
-//            int moveToTry = MOVE_PREFERENCE_IN_ORDER[indexOfMoveToTry];
-//            if(board.isCellEmpty(moveToTry)) {
-//                move = moveToTry;
-//            }
-//            indexOfMoveToTry++;
-//        }
 
         if (move != NO_MOVE) {
             didMakeMove = true;
