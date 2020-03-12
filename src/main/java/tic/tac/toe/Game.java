@@ -49,7 +49,7 @@ public class Game {
 
   public void run() {
     boolean keepPlaying = true;
-    inputOutput.sendOutput(messages.greeting());
+
     inputOutput.sendOutput(messages.formattedBoard(board));
     while (keepPlaying) {
       if (!isGameOver()) {

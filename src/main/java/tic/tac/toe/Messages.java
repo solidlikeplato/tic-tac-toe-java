@@ -24,11 +24,14 @@ public class Messages {
   }
 
   public String outcome(char winningSymbol) {
-    if (winningSymbol == TIE_GAME)
-    {
+    if (winningSymbol == TIE_GAME) {
       return "There is no winner! The only winning move is not to play!";
     } else {
       return "Congratulations to " + winningSymbol + ", our winner!";
     }
+  }
+
+  public String promptForNumberOfPlayers() {
+    return "Would you Like 1 or 2 Human Players?";
   }
 }
