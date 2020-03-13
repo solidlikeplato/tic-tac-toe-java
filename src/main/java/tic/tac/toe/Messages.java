@@ -1,15 +1,17 @@
 package tic.tac.toe;
 
-public class UI {
+public class Messages {
 
-  public UI() {
+  public static final char TIE_GAME = ' ';
+
+  public Messages() {
   }
 
-  public String getGreeting() {
+  public String greeting() {
     return "Welcome to The WOPR! Would you like to play a game?";
   }
 
-  public String displayBoard(Board board) {
+  public String formattedBoard(Board board) {
     String firstRow = " " + board.getMarkAt(1) + " | " + board.getMarkAt(2) + " | "+ board.getMarkAt(3)+ " \n";
     String horizontalRule = "---|---|---\n";
     String secondRow = " " + board.getMarkAt(4) + " | " + board.getMarkAt(5) + " | "+ board.getMarkAt(6)+ " \n";
@@ -21,8 +23,9 @@ public class UI {
     return "1 2 3\n4 5 6\n7 8 9\nWhere would you like to put your " + currentPlayerSymbol + "?";
   }
 
-  public String displayOutcome(char winningSymbol) {
-    if (winningSymbol == ' ') {
+  public String outcome(char winningSymbol) {
+    if (winningSymbol == TIE_GAME)
+    {
       return "There is no winner! The only winning move is not to play!";
     } else {
       return "Congratulations to " + winningSymbol + ", our winner!";
