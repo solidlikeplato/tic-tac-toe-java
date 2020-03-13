@@ -1,5 +1,7 @@
 package tic.tac.toe;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Board {
   public static final char EMPTY_CELL = ' ';
@@ -18,6 +20,15 @@ public class Board {
     this.board = board;
   }
 
+  public List<Integer> getEmptyCells() {
+    List<Integer> emptyCells = new ArrayList<Integer>();
+    for (int cell = 1; cell <= 9; cell++) {
+      if (isCellEmpty(cell)) {
+        emptyCells.add(cell);
+      }
+    }
+    return emptyCells;
+  }
 
   public boolean isCellInRange(int cell) {
     return cell >= 1 && cell <= board.length;
