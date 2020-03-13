@@ -1,6 +1,11 @@
 package tic.tac.toe;
 
 import org.junit.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class BoardTest {  
@@ -105,5 +110,25 @@ public class BoardTest {
   public void outOfRangeCellsAreEmpty() {
     assertFalse(board.isCellEmpty(0));
     assertFalse(board.isCellEmpty(10));
+  }
+
+  @Test
+  public void returnsListOfEmptyCells() {
+    char[] newBoard = {'X','X','X',
+                       ' ',' ','X',
+                       'O',' ',' '};
+    board.setBoard(newBoard);
+    List<Integer> emptyCells = new ArrayList<>(Arrays.asList(4,5,8,9));
+    assertEquals(board.getEmptyCells(), emptyCells);
+  }
+
+  @Test
+  public void returnsADifferentListOfEmptyCells() {
+    char[] newBoard = {' ','X','X',
+                       ' ','O','X',
+                       'O',' ','X'};
+    board.setBoard(newBoard);
+    List<Integer> expectedEmptyCells = Arrays.asList(1, 4, 8);
+    assertEquals(board.getEmptyCells(), expectedEmptyCells);
   }
 }
