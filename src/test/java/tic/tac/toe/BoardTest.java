@@ -139,4 +139,26 @@ public class BoardTest {
     List<Integer> expectedEmptyCells = Arrays.asList(1, 4, 8);
     assertEquals(board.getEmptyCells(), expectedEmptyCells);
   }
+
+  @Test
+  public void returnsListOfCells() {
+    char[] newBoard = {'X','X','X',
+                       ' ',' ','X',
+                       'O',' ',' '};
+    board.setBoard(newBoard);
+    List<Integer> cellsToGet = new ArrayList<>(Arrays.asList(1,4,7));
+    List<Character> valuesOfCells = new ArrayList<>(Arrays.asList('X', ' ', 'O'));
+    assertEquals(board.getCells(cellsToGet), valuesOfCells);
+  }
+
+  @Test
+  public void returnsAnotherListOfCells() {
+    char[] newBoard = {'X','X','X',
+                       ' ',' ','X',
+                       'O',' ',' '};
+    board.setBoard(newBoard);
+    List<Integer> cellsToGet = new ArrayList<>(Arrays.asList(1,5,9));
+    List<Character> valuesOfCells = new ArrayList<>(Arrays.asList('X', ' ', ' '));
+    assertEquals(board.getCells(cellsToGet), valuesOfCells);
+  }
 }

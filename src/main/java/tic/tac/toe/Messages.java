@@ -8,7 +8,7 @@ public class Messages {
   }
 
 
-  public String getGreeting() {
+  public String greeting() {
     return "Welcome to The WOPR! Shall we play a game?";
   }
 
