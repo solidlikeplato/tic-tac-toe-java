@@ -31,8 +31,9 @@ public class Board {
     return emptyCells;
   }
 
-  public List<Character> getCells(List<Integer> cellsToGet) {
-    List<Character> cells = cellsToGet.stream()
+  public List<Character> getCells(int[] cellsToGet) {
+    List<Character> cells = Arrays.stream(cellsToGet)
+            .boxed()
             .map(cell -> getMarkAt(cell))
             .collect(Collectors.toList());
     return cells;

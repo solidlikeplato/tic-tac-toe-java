@@ -8,6 +8,7 @@ public class Game {
   private Player player2;
   private Player currentPlayer;
   private Player winningPlayer = null;
+  public static final int[][] WINNING_COMBINATIONS = new int[][]{{1, 4, 7}, {2, 5, 8}, {3, 6, 9}, {1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 5, 9}, {3, 5, 7}};
 
   public Game(Messages messages, InputOutput inputOutput, Board board, Player player1, Player player2) {
     this.inputOutput = inputOutput;
@@ -19,8 +20,7 @@ public class Game {
   }
 
   public boolean isWinner() {
-    int[][] winningCombinations = {{1,4,7}, {2,5,8}, {3,6,9}, {1,2,3}, {4,5,6}, {7,8,9}, {1,5,9}, {3,5,7}};
-    for (int[] column: winningCombinations) {
+    for (int[] column: WINNING_COMBINATIONS) {
       char mark1 = board.getMarkAt(column[0]);
       char mark2 = board.getMarkAt(column[1]);
       char mark3 = board.getMarkAt(column[2]);

@@ -36,10 +36,21 @@ public class UnbeatableComputerTest {
     }
 
     @Test
-    public void computerBlocksOpponentWin() {
-        char[] newBoard = { 'X',' ',' ',
-                            'X',' ',' ',
+    public void computerWinsWhenGivenAnotherChance() {
+        char[] newBoard = { 'O',' ',' ',
+                            ' ','O',' ',
                             ' ',' ',' '};
+        testBoard.setBoard(newBoard);
+        computer.makeAMove(testBoard);
+        assertTrue(computer.didMove());
+        assertEquals(testBoard.getMarkAt(9), computer.getSymbol());
+    }
+
+    @Test
+    public void computerBlocksOpponentWin() {
+        char[] newBoard = {  ' ',' ','X',
+                             ' ','X',' ',
+                             ' ',' ',' '};
         testBoard.setBoard(newBoard);
         computer.makeAMove(testBoard);
         assertTrue(computer.didMove());
@@ -47,28 +58,14 @@ public class UnbeatableComputerTest {
     }
 
     @Test
-    public void computerSetsUpFutureWin() {
-        char[] newBoard = { ' ','X','O',
-                            ' ','O',' ',
-                            'X',' ',' '};
+    public void computerBlocksAnotherOpponentWin() {
+        char[] newBoard = {  ' ',' ',' ',
+                             'X','X',' ',
+                             ' ',' ',' '};
         testBoard.setBoard(newBoard);
         computer.makeAMove(testBoard);
         assertTrue(computer.didMove());
-        assertThat(computer.getSymbol(), either(is(testBoard.getMarkAt(6))).or(is(testBoard.getMarkAt(9))));
+        assertEquals(testBoard.getMarkAt(7), computer.getSymbol());
     }
 
-    // next test to make pass
-//    @Test
-//    public void computerBlocksOpponentFutureWin() {
-//        char[] newBoard = { ' ',' ','X',
-//                            ' ','O',' ',
-//                            'X',' ',' '};
-//        testBoard.setBoard(newBoard);
-//        computer.makeAMove(testBoard);
-//        assertTrue(computer.didMove());
-//        assertThat(computer.getSymbol(), either(is(testBoard.getMarkAt(2)))
-//                                            .or(is(testBoard.getMarkAt(4)))
-//                                            .or(is(testBoard.getMarkAt(6)))
-//                                            .or(is(testBoard.getMarkAt(8))));
-//    }
 }

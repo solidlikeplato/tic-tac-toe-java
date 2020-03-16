@@ -146,7 +146,7 @@ public class BoardTest {
                        ' ',' ','X',
                        'O',' ',' '};
     board.setBoard(newBoard);
-    List<Integer> cellsToGet = new ArrayList<>(Arrays.asList(1,4,7));
+    int[] cellsToGet = {1,4,7};
     List<Character> valuesOfCells = new ArrayList<>(Arrays.asList('X', ' ', 'O'));
     assertEquals(board.getCells(cellsToGet), valuesOfCells);
   }
@@ -157,7 +157,7 @@ public class BoardTest {
                        ' ',' ','X',
                        'O',' ',' '};
     board.setBoard(newBoard);
-    List<Integer> cellsToGet = new ArrayList<>(Arrays.asList(1,5,9));
+    int[] cellsToGet = {1,5,9};
     List<Character> valuesOfCells = new ArrayList<>(Arrays.asList('X', ' ', ' '));
     assertEquals(board.getCells(cellsToGet), valuesOfCells);
   }
