@@ -47,6 +47,13 @@ public class MenuTest {
     }
 
     @Test
+    public void menuTellsPlayerInvalidInputFor3Players() {
+        when(inputOutput.getInput()).thenReturn(3).thenReturn(2);
+        menu.createGame();
+        verify(inputOutput).sendOutput(messages.informPlayerInvalidInput());
+    }
+
+    @Test
     public void menuMakesComputerGameWhenTold1Player() {
         when(inputOutput.getInput()).thenReturn(1);
         doReturn(computerGame).when(testMenu)
