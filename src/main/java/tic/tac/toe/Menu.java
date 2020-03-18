@@ -14,7 +14,7 @@ public class Menu {
     private Player createPlayer(char playerSymbol, int numberOfHumanPlayers) {
         Player player;
         if (numberOfHumanPlayers == 1 && playerSymbol != 'X') {
-            player = new DumbComputer(playerSymbol);
+            player = new UnbeatableComputer(playerSymbol, 'X');
         } else {
             player = new HumanPlayer(playerSymbol, new ConsoleInputOutput());
         }
