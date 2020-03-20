@@ -31,7 +31,9 @@ public class Messages {
       return "Congratulations to " + winningSymbol + ", our winner!";
     }
   }
-
+  public String informPlayerInvalidInput() {
+    return "Invalid Input! please try again.";
+  }
   public String promptForNumberOfPlayers() {
     return "Would you Like 1 or 2 Human Players?";
   }

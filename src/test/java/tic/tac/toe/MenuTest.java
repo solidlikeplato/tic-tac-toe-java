@@ -47,7 +47,9 @@ public class MenuTest {
     }
 
     @Test
+
     public void menuMakesUnbeatableComputerGameWhenTold1Player() {
+
         when(inputOutput.getInput()).thenReturn(1);
         doReturn(computerGame).when(testMenu)
                 .makeGame(any( Messages.class ), any( InputOutput.class ),
