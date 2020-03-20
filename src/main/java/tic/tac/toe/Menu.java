@@ -32,10 +32,16 @@ public class Menu {
     }
 
     private int getNumberOfHumanPlayers() {
+        boolean validInput = false;
         int numberOfHumanPlayers = 0;
-        while (numberOfHumanPlayers > 2 || numberOfHumanPlayers < 1) {
+        while (!validInput) {
             inputOutput.sendOutput(messages.promptForNumberOfPlayers());
             numberOfHumanPlayers = inputOutput.getInput();
+            if (numberOfHumanPlayers == 1 || numberOfHumanPlayers == 2){
+                validInput = true;
+            } else {
+                inputOutput.sendOutput(messages.informPlayerInvalidInput());
+            }
         }
         return numberOfHumanPlayers;
     }
