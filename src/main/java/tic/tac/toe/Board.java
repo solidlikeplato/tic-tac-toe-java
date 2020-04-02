@@ -22,7 +22,7 @@ public class Board {
   }
 
   public List<Integer> getEmptyCells() {
-    List<Integer> emptyCells = new ArrayList<Integer>();
+    List<Integer> emptyCells = new ArrayList<>();
     for (int cell = 1; cell <= 9; cell++) {
       if (isCellEmpty(cell)) {
         emptyCells.add(cell);
@@ -32,11 +32,10 @@ public class Board {
   }
 
   public List<Character> getCells(int[] cellsToGet) {
-    List<Character> cells = Arrays.stream(cellsToGet)
+    return Arrays.stream(cellsToGet)
             .boxed()
-            .map(cell -> getMarkAt(cell))
+            .map(this::getMarkAt)
             .collect(Collectors.toList());
-    return cells;
   }
 
   public boolean isCellInRange(int cell) {

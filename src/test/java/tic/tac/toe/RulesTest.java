@@ -21,10 +21,10 @@ public class RulesTest {
             ' ',' ',' ',
             ' ',' ',' '
         });
+        Player player = new UnbeatableComputer('X','O');
 
-        GameStatus status = determineStatus(board);
+        GameStatus status = determineStatus(board, player);
 
-        assertEquals(GameStatus.IN_PROGRESS, status);
     }
 
     @Test
@@ -34,36 +34,40 @@ public class RulesTest {
             'X', 'O', 'X',
             'O', 'X', 'O'
         });
+        Player player = new UnbeatableComputer('X','O');
 
-        GameStatus status = determineStatus(board);
+        GameStatus status = determineStatus(board, player);
 
         assertEquals(GameStatus.TIE_GAME, status);
     }
 
     @Test
-    public void determineStatusWhenPlayerOneWins() {
+    public void determineStatusWhenPlayerWins() {
         Board board = buildBoard(new char[] {
             'X','X','X',
             'O','O',' ',
             ' ',' ',' '
         });
+        Player player = new UnbeatableComputer('X','O');
 
-        GameStatus status = determineStatus(board);
+        GameStatus status = determineStatus(board, player);
 
-        assertEquals(GameStatus.PLAYER_ONE_WINS, status);
+        assertEquals(GameStatus.PLAYER_WINS, status);
     }
 
     @Test
-    public void determineStatusWhenPlayerTwoWins() {
+    public void determineStatusWhenPlayerLoses() {
         Board board = buildBoard(new char[] {
-            'X',' ','X',
-            'O','O','O',
+            'X','X','X',
+            'O','O',' ',
             ' ',' ',' '
         });
+        Player player = new UnbeatableComputer('O','X');
 
-        GameStatus status = determineStatus(board);
+        GameStatus status = determineStatus(board, player);
 
-        assertEquals(GameStatus.PLAYER_TWO_WINS, status);
+
+        assertEquals(GameStatus.PLAYER_LOSES, status);
     }
 
     private Board buildBoard(char[] marks) {
@@ -72,7 +76,7 @@ public class RulesTest {
         return board;
     }
 
-    private GameStatus determineStatus(Board board) {
-        return new Rules().determineStatus(board);
+    private GameStatus determineStatus(Board board, Player player) {
+        return new Rules().determineStatus(board, player);
     }
 }

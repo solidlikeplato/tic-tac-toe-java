@@ -14,6 +14,11 @@ public class DumbComputer implements Player{
         return symbol;
     }
 
+    public char getOpponentSymbol() {
+        // This computer is really dumb. it doesn't understand the idea of any other player
+        return symbol;
+    }
+
     public boolean didMove(){
         return didMakeMove;
     }

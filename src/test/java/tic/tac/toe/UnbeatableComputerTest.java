@@ -54,7 +54,7 @@ public class UnbeatableComputerTest {
         testBoard.setBoard(newBoard);
         computer.makeAMove(testBoard);
         assertTrue(computer.didMove());
-        assertEquals(testBoard.getMarkAt(7), computer.getSymbol());
+        assertEquals(computer.getSymbol(), testBoard.getMarkAt(7));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class UnbeatableComputerTest {
         testBoard.setBoard(newBoard);
         computer.makeAMove(testBoard);
         assertTrue(computer.didMove());
-        assertEquals(testBoard.getMarkAt(6), computer.getSymbol());
+        assertEquals(computer.getSymbol(), testBoard.getMarkAt(6));
     }
 
     @Test
