@@ -101,6 +101,7 @@ public class UnbeatableComputer implements Player {
                 move = pivots.get(0);
             }
         }
+
         // block opponent future win if possible
         if (move == NO_MOVE) {
             List<Integer> pivots = findPivots(board, opponentSymbol);

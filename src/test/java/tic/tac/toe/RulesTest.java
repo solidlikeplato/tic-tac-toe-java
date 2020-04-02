@@ -3,16 +3,7 @@ package tic.tac.toe;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-/*
-Other potential ideas:
-rules.hasWinner(board); // true / false
-rules.isOver(board); // true / false
-rules.isInProgress(board); // true / false
-rules.isTie(board); // true / false
 
-GameStatus.IN_PROGRESS / TIE_GAME / HAS_WINNER
-GameStatus.IN_PROGRESS / TIE_GAME / PLAYER_ONE_WINS
- */
 public class RulesTest {
     @Test
     public void determineStatus_WhenBoardIsEmpty_ReturnsInProgress() {
@@ -25,6 +16,7 @@ public class RulesTest {
 
         GameStatus status = determineStatus(board, player);
 
+        assertEquals(GameStatus.IN_PROGRESS, status);
     }
 
     @Test
@@ -42,7 +34,7 @@ public class RulesTest {
     }
 
     @Test
-    public void determineStatusWhenPlayerWins() {
+    public void determineStatusWhenPlayerWinsHorizontal() {
         Board board = buildBoard(new char[] {
             'X','X','X',
             'O','O',' ',
@@ -56,16 +48,71 @@ public class RulesTest {
     }
 
     @Test
-    public void determineStatusWhenPlayerLoses() {
+    public void determineStatusWhenPlayerWinsVertical() {
         Board board = buildBoard(new char[] {
-            'X','X','X',
+            'X','O',' ',
+            'X','O',' ',
+            'X',' ',' '
+        });
+        Player player = new UnbeatableComputer('X','O');
+
+        GameStatus status = determineStatus(board, player);
+
+        assertEquals(GameStatus.PLAYER_WINS, status);
+    }
+
+    @Test
+    public void determineStatusWhenPlayerWinsDiagonal() {
+        Board board = buildBoard(new char[] {
+            'X','O',' ',
+            'O','X',' ',
+            ' ',' ','X'
+        });
+        Player player = new UnbeatableComputer('X','O');
+
+        GameStatus status = determineStatus(board, player);
+
+        assertEquals(GameStatus.PLAYER_WINS, status);
+    }
+
+    @Test
+    public void determineStatusWhenPlayerLosesHorizontal() {
+        Board board = buildBoard(new char[] {
             'O','O',' ',
+            'X','X','X',
             ' ',' ',' '
         });
         Player player = new UnbeatableComputer('O','X');
 
         GameStatus status = determineStatus(board, player);
 
+        assertEquals(GameStatus.PLAYER_LOSES, status);
+    }
+
+    @Test
+    public void determineStatusWhenPlayerLosesVertical() {
+        Board board = buildBoard(new char[] {
+            ' ','X','O',
+            'O','X',' ',
+            ' ','X',' '
+        });
+        Player player = new UnbeatableComputer('O','X');
+
+        GameStatus status = determineStatus(board, player);
+
+        assertEquals(GameStatus.PLAYER_LOSES, status);
+    }
+
+    @Test
+    public void determineStatusWhenPlayerLosesDiagonal() {
+        Board board = buildBoard(new char[] {
+            ' ','O','X',
+            'O','X',' ',
+            'X',' ',' '
+        });
+        Player player = new UnbeatableComputer('O','X');
+
+        GameStatus status = determineStatus(board, player);
 
         assertEquals(GameStatus.PLAYER_LOSES, status);
     }
