@@ -77,7 +77,8 @@ public class UnbeatableComputer implements Player {
             for (int nextMoveCell: board.getEmptyCells()) {
                 if (boardStatusAfterMove(board,symbol,nextMoveCell) == GameStatus.PLAYER_WINS &&
                         !pivots.contains(nextMoveCell)){
-                    move = nextMoveCell;
+                    move = cell;
+                    System.out.println(pivots.toString() + nextMoveCell);
                 }
             }
             board.addMark(cell, board.EMPTY_CELL);

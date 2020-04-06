@@ -18,7 +18,7 @@ public class GameTest {
   private Player player2 = new HumanPlayer('O');
   private Player mockPlayer1 = mock(HumanPlayer.class);
   private InputOutput inputOutput;
-
+  private Rules rules = mock(Rules.class);
 
   @Before
   public void setUp() {
@@ -26,6 +26,7 @@ public class GameTest {
     board = new Board();
     inputOutput = new ConsoleInputOutput();
     game = new Game(messages, inputOutput, board, player1, player2);
+
   }
 
   @Test
@@ -49,9 +50,11 @@ public class GameTest {
   @Test
   public void gameChangesPlayerIfMadeMove() {
     Board mockedBoard = mock(Board.class);
-    game = new Game(messages, inputOutput, mockedBoard, mockPlayer1, player2);
-    when(mockedBoard.isBoardFull()).thenReturn(false).thenReturn(true);
-    when(mockedBoard.isCellEmpty(anyInt())).thenReturn(true);
+    game = new Game(messages, inputOutput, mockedBoard, mockPlayer1, player2, rules);
+    when(rules.determineStatus(any(), any()))
+            .thenReturn(GameStatus.IN_PROGRESS)
+            .thenReturn(GameStatus.IN_PROGRESS)
+            .thenReturn(GameStatus.PLAYER_WINS);
     when(mockPlayer1.didMove()).thenReturn(true);
     game.run();
     assertEquals(game.getCurrentPlayerSymbol(), player2.getSymbol());
