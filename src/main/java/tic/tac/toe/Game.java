@@ -60,19 +60,18 @@ public class Game {
         takeATurn();
       }
 
-      if (isWinner()){
-        winningPlayer = currentPlayer;
-        inputOutput.sendOutput("Winner is " + currentPlayer.getSymbol());
-      }
 
       if (currentPlayer.didMove()) {
         changePlayer();
       }
 
       inputOutput.sendOutput("\n" + messages.formattedBoard(board));
-      
+
     }
 
+    if (isWinner()){
+      winningPlayer = currentPlayer;
+    }
     inputOutput.sendOutput(messages.outcome(winningPlayer == null ? Messages.TIE_GAME : winningPlayer.getSymbol()));
   }
 
