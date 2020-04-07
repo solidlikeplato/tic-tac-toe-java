@@ -14,11 +14,11 @@ public class GameTest {
   private char[] notQuiteFullBoardOneSymbol = { 'a','a','a',
                                                 'a','a','a',
                                                 'a','a',' '};
-  private Player player1 = new HumanPlayer('X');
-  private Player player2 = new HumanPlayer('O');
   private Player mockPlayer1 = mock(HumanPlayer.class);
-  private InputOutput inputOutput;
-
+  private InputOutput inputOutput = mock(ConsoleInputOutput.class);
+  private Player player1 = new HumanPlayer('X', 'O', inputOutput);
+  private Player player2 = new HumanPlayer('O', 'X', inputOutput);
+  private Rules rules = mock(Rules.class);
 
   @Before
   public void setUp() {
@@ -26,6 +26,7 @@ public class GameTest {
     board = new Board();
     inputOutput = new ConsoleInputOutput();
     game = new Game(messages, inputOutput, board, player1, player2);
+
   }
 
   @Test
@@ -41,7 +42,7 @@ public class GameTest {
                             ' ',' ',' ',
                             ' ',' ',' '};
     board.setBoard(topRowWinner);
-    game = new Game(messages, inputOutput, board, mockPlayer1, player2);
+    game = new Game(messages, inputOutput, board, player1, player2);
     game.run();
     verify(messages, never()).prompt(anyChar());
   }
@@ -49,25 +50,16 @@ public class GameTest {
   @Test
   public void gameChangesPlayerIfMadeMove() {
     Board mockedBoard = mock(Board.class);
-    game = new Game(messages, inputOutput, mockedBoard, mockPlayer1, player2);
-    when(mockedBoard.isBoardFull()).thenReturn(false).thenReturn(true);
-    when(mockedBoard.isCellEmpty(anyInt())).thenReturn(true);
+    game = new Game(messages, inputOutput, mockedBoard, mockPlayer1, player2, rules);
+    when(rules.determineStatus(any(), any()))
+            .thenReturn(GameStatus.IN_PROGRESS)
+            .thenReturn(GameStatus.IN_PROGRESS)
+            .thenReturn(GameStatus.PLAYER_WINS);
     when(mockPlayer1.didMove()).thenReturn(true);
     game.run();
     assertEquals(game.getCurrentPlayerSymbol(), player2.getSymbol());
   }
 
-  @Test
-  public void gameDoesntChangePlayerIfNoMoveMade() {
-    Board mockedBoard = mock(Board.class);
-    game = new Game(messages, inputOutput, mockedBoard, mockPlayer1, player2);
-    when(mockedBoard.isBoardFull()).thenReturn(false).thenReturn(true);
-    when(mockedBoard.isCellEmpty(anyInt())).thenReturn(true);
-    when(mockPlayer1.didMove()).thenReturn(false);
-    when(mockPlayer1.getSymbol()).thenReturn('&');
-    game.run();
-    assertEquals(game.getCurrentPlayerSymbol(), mockPlayer1.getSymbol());
-  }
 
   @Test
   public void newGameDoesntHaveWinner() {
@@ -105,15 +97,6 @@ public class GameTest {
   }
 
   @Test
-  public void gameDisplaysWinner() {
-    board.setBoard(notQuiteFullBoardOneSymbol);
-    game = new Game(messages, inputOutput, board, mockPlayer1, player2);
-    when(mockPlayer1.getSymbol()).thenReturn('&');
-    game.run();
-    verify(messages).outcome(mockPlayer1.getSymbol());
-  }
-
-  @Test
   public void gameDisplaysTieMessage() {
     board.setBoard(fullBoardNoWinner);
     game = new Game(messages, inputOutput, board, mockPlayer1, player2);
@@ -121,4 +104,36 @@ public class GameTest {
     game.run();
     verify(messages).outcome(' ');
   }
+
+  @Test
+  public void gameDisplaysWinner() {
+    char[] backSlashDiagonalWinner = {
+            'X',' ',' ',
+            ' ','X',' ',
+            ' ',' ','X'
+    };
+    board.setBoard(backSlashDiagonalWinner);
+    game = new Game(messages, inputOutput, board, player1, player2);
+
+    game.run();
+
+    verify(messages).outcome(player1.getSymbol());
+
+    // winner is set in the game loop, bypassing it doesn't set winner -- fix this
+  }
+
+  @Test
+  public void gameDoesntChangePlayerIfNoMoveMade() {
+    game = new Game(messages, inputOutput, board, mockPlayer1, player2, rules);
+    when(rules.determineStatus(any(), any()))
+                .thenReturn(GameStatus.IN_PROGRESS)
+                .thenReturn(GameStatus.IN_PROGRESS)
+                .thenReturn(GameStatus.PLAYER_WINS);
+     when(mockPlayer1.getSymbol()).thenReturn('&');
+     when (mockPlayer1.didMove()).thenReturn(false);
+
+     assertEquals(mockPlayer1.getSymbol(), game.getCurrentPlayerSymbol());
+
+  }
+
 }

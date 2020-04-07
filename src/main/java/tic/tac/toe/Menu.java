@@ -11,12 +11,12 @@ public class Menu {
         return new Game(messages, inputOutput, board, player1, player2);
     }
 
-    private Player createPlayer(char playerSymbol, int numberOfHumanPlayers) {
+    private Player createPlayer(char playerSymbol, char opponentSymbol, int numberOfHumanPlayers) {
         Player player;
         if (numberOfHumanPlayers == 1 && playerSymbol != 'X') {
-            player = new DumbComputer(playerSymbol);
+            player = new UnbeatableComputer(playerSymbol, opponentSymbol);
         } else {
-            player = new HumanPlayer(playerSymbol, new ConsoleInputOutput());
+            player = new HumanPlayer(playerSymbol, opponentSymbol, new ConsoleInputOutput());
         }
         return player;
     }
@@ -24,8 +24,8 @@ public class Menu {
     public Game createGame() {
         inputOutput.sendOutput(messages.greeting());
         int numberOfHumanPlayers = getNumberOfHumanPlayers();
-        Player player1 = createPlayer('X', numberOfHumanPlayers);
-        Player player2 = createPlayer('O', numberOfHumanPlayers);
+        Player player1 = createPlayer('X', 'O', numberOfHumanPlayers);
+        Player player2 = createPlayer('O', 'X', numberOfHumanPlayers);
         Board board = new Board();
         Messages messages = new Messages();
         return makeGame(messages, inputOutput, board, player1, player2);

@@ -2,6 +2,7 @@ package tic.tac.toe;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Board {
   public static final char EMPTY_CELL = ' ';
@@ -21,13 +22,20 @@ public class Board {
   }
 
   public List<Integer> getEmptyCells() {
-    List<Integer> emptyCells = new ArrayList<Integer>();
+    List<Integer> emptyCells = new ArrayList<>();
     for (int cell = 1; cell <= 9; cell++) {
       if (isCellEmpty(cell)) {
         emptyCells.add(cell);
       }
     }
     return emptyCells;
+  }
+
+  public List<Character> getCells(int[] cellsToGet) {
+    return Arrays.stream(cellsToGet)
+            .boxed()
+            .map(this::getMarkAt)
+            .collect(Collectors.toList());
   }
 
   public boolean isCellInRange(int cell) {

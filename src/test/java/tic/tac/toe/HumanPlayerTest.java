@@ -15,19 +15,17 @@ public class HumanPlayerTest {
     public void setUp() {
         mockedBoard = mock(Board.class);
         inputOutput = mock(ConsoleInputOutput.class);
-        player = new HumanPlayer('X', inputOutput);
+        player = new HumanPlayer('X', 'O', inputOutput);
     }
 
     @Test
     public void humanPlayerHasASymbol() {
-        HumanPlayer player = new HumanPlayer('X', inputOutput);
         assertNotNull(player.getSymbol());
     }
 
     @Test
     public void humanPlayerDoesNotUpdateBoardWithZeroAsInput() {
         when(inputOutput.getInput()).thenReturn(0);
-        player = new HumanPlayer('X', inputOutput);
         player.makeAMove(mockedBoard);
         verify(mockedBoard, never()).addMark(anyInt(), anyChar());
     }
@@ -35,12 +33,9 @@ public class HumanPlayerTest {
     @Test
     public void humanPlayerMakesMoveWhenGivenValidInput() {
         when(inputOutput.getInput()).thenReturn(5);
-        player = new HumanPlayer('X', inputOutput);
         when(mockedBoard.isBoardFull()).thenReturn(true);
         when(mockedBoard.isCellEmpty(anyInt())).thenReturn(true);
-
         player.makeAMove(mockedBoard);
-
         verify(mockedBoard).addMark(5,'X');
         assertTrue(player.didMove());
     }
@@ -48,7 +43,6 @@ public class HumanPlayerTest {
     @Test public void humanPlayerWontAddSymbolToFilledCell() {
         when(inputOutput.getInput()).thenReturn(0);
         when(mockedBoard.isCellEmpty(anyInt())).thenReturn(false);
-        player = new HumanPlayer('X', inputOutput);
 
         player.makeAMove(mockedBoard);
 

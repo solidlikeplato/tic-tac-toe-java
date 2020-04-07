@@ -47,19 +47,14 @@ public class MenuTest {
     }
 
     @Test
-    public void menuTellsPlayerInvalidInputFor3Players() {
-        when(inputOutput.getInput()).thenReturn(3).thenReturn(2);
-        menu.createGame();
-        verify(inputOutput).sendOutput(messages.informPlayerInvalidInput());
-    }
 
-    @Test
-    public void menuMakesComputerGameWhenTold1Player() {
+    public void menuMakesUnbeatableComputerGameWhenTold1Player() {
+
         when(inputOutput.getInput()).thenReturn(1);
         doReturn(computerGame).when(testMenu)
                 .makeGame(any( Messages.class ), any( InputOutput.class ),
                         any( Board.class ), any( HumanPlayer.class ),
-                        any( DumbComputer.class ));
+                        any( UnbeatableComputer.class ));
         assertEquals(testMenu.createGame(), computerGame);
     }
 
